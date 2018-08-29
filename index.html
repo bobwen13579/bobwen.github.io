@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/28/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/Facing to Test Problems/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bob Wen">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/28/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2018/08/29/Facing to Test Problems/" itemprop="url">Facing to Test Problems</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T19:40:18+08:00">
-                2018-08-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-29T20:40:25+08:00">
+                2018-08-29
               </time>
             
 
@@ -290,6 +290,39 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -320,15 +353,503 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+            <h1 id="Facing-to-Test-Problems"><a href="#Facing-to-Test-Problems" class="headerlink" title="Facing to Test Problems"></a>Facing to Test Problems</h1><h2 id="mocking-singletons-with-ocmock"><a href="#mocking-singletons-with-ocmock" class="headerlink" title="mocking-singletons-with-ocmock"></a>mocking-singletons-with-ocmock</h2><h3 id="Enter-categories"><a href="#Enter-categories" class="headerlink" title="Enter categories"></a>Enter categories</h3><p>The simplest way around this problem is to create a category on the singleton in your test code that overrides the singleton instantiator. In Objective-C, a category is mechanism for adding or overriding methods in existing classes. Using a category, we can modify the behavior of the defaultCenter method just within the scope of the unit tests to return a mock version:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">static NSNotificationCenter mockNotificationCenter = nil;</span><br><span class="line"></span><br><span class="line">@implementation NSNotificationCenter (UnitTests)</span><br><span class="line"></span><br><span class="line">+(id)defaultCenter &#123;</span><br><span class="line"></span><br><span class="line">    return mockNotificationCenter;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>With this category, any time the code under test calls <code>[NSNotificationCenterdefaultCenter]</code>, it will get value of mockMotificationCenter instead. If you do nothing, it’ll be nil, so it effectively just becomes a message sink. But your test can create a mock using <a href="http://www.mulle-kybernetik.com/software/OCMock/" target="_blank" rel="noopener">OCMock</a> that expects the notification and verifies that it is issued:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-(void)testShouldPostNotification &#123;</span><br><span class="line"></span><br><span class="line">    mockNotificationCenter = [OCMockObject mockForClass:[NSNotificationCenter class]];</span><br><span class="line"></span><br><span class="line">    [[mockNotificationCenter expect] postNotificationName:@&quot;some notification&quot;];</span><br><span class="line"></span><br><span class="line">    [myObject doSomethingThatPostsNotification];</span><br><span class="line"></span><br><span class="line">    [mockNotificationCenter verify];</span><br><span class="line"></span><br><span class="line">    mockNotificationCenter = nil;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Note that with this approach, you need to be sure to set the mock instance to nil at the end of your test. OCMocks are autoreleased, so if the test case still has a reference to the released version, you’ll get an EXC_BAD_ACCESS error the next time <code>[NSNotificationCenterdefaultCenter]</code> is called. A good place to do that is in your tearDown method, so it’s set back to nil after each test.</p>
+<h3 id="Making-the-mock-available-to-other-tests"><a href="#Making-the-mock-available-to-other-tests" class="headerlink" title="Making the mock available to other tests"></a>Making the mock available to other tests</h3><p>Now that we can mock the singleton in a single test case, we should make it available to all of our unit tests. I have a base test case class that all of my test classes inherit from, which is where I import OCMock and <a href="http://jonreid.github.com/OCHamcrest/" target="_blank" rel="noopener">OCHamcrest</a> and do other global testing setup. We can move the static variable and category up to that class, and create static methods for setting the variable:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">+(id)createMockNotificationCenter &#123;</span><br><span class="line"></span><br><span class="line">    mockNotificationCenter = [OCMockObject mockForClass:[NSNotificationCenter class]];</span><br><span class="line"></span><br><span class="line">    return mockNotificationCenter;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(id)createNiceMockNotificationCenter &#123;</span><br><span class="line"></span><br><span class="line">    mockNotificationCenter = [OCMockObject niceMockForClass:[NSNotificationCenter class]];</span><br><span class="line"></span><br><span class="line">    return mockNotificationCenter;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">These methods both set the static variable and return the mock to the caller, for setting expectations and verifying. The “nice” version will silently swallow unexpected messages, where the regular version will throw an exception if it receives an unexpected message. Don’t forget to set it back to nil in tearDown, and call [super tearDown] in the test class’s tearDown method. Now we can update the test case above to:</span><br><span class="line"></span><br><span class="line">-(void)testShouldPostNotification &#123;</span><br><span class="line"></span><br><span class="line">    mockNotificationCenter = [BaseTestCase createMockNotificationCenter];</span><br><span class="line"></span><br><span class="line">    [[mockNotificationCenter expect] postNotificationName:@&quot;some notification&quot;];</span><br><span class="line"></span><br><span class="line">    [myObject doSomethingThatPostsNotification];</span><br><span class="line"></span><br><span class="line">    [mockNotificationCenter verify];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="But-sometimes-I-want-the-real-NSNotificationCenter"><a href="#But-sometimes-I-want-the-real-NSNotificationCenter" class="headerlink" title="But sometimes I want the real NSNotificationCenter"></a>But sometimes I want the real NSNotificationCenter</h3><p>The main drawback to this category is that it will always override the original. That may not be an issue for notifications, but when testing your own singletons, you’ll need to be able to test the actual class. But now that you’ve overridden the instantiator in a category, you can’t just call the original instantiator if the static variable is nil. Or can you? Fortunately, Matt Gallagher <a href="http://cocoawithlove.com/2008/03/supersequent-implementation.html" target="_blank" rel="noopener">created some nice macros</a> that you can use to conditionally invoke the original.</p>
+<p>Using Matt’s <code>invokeSupersequentNoArgs</code> macro, we can change the category method to the following:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@implementation NSNotificationCenter (UnitTests)</span><br><span class="line"></span><br><span class="line">+(id)defaultCenter &#123;</span><br><span class="line"></span><br><span class="line">    if ([BaseTestCase mockNotificationCenter] != nil) &#123;</span><br><span class="line"></span><br><span class="line">        return [BaseTestCase mockNotificationCenter];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return invokeSupersequentNoArgs();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">Note we also have to add a class method to retrieve the mock:</span><br><span class="line"></span><br><span class="line">+(id)mockNotificationCenter &#123;</span><br><span class="line"></span><br><span class="line">    return mockNotificationCenter;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now when <code>[NSNotificationCenter defaultCenter]</code> is invoked, the test case first checks to see if a mock has been set. If it has, the mock is returned. Otherwise, the original, overridden method is invoked.</p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>The singleton is a design pattern you should use with care, as it certainly makes you jump through a few more hurdles when testing. But with a bit of careful setup, your singleton dependencies can (and should) be tested and verified.</p>
+<p><a href="https://twobitlabs.com/2011/02/mocking-singletons-with-ocmock/" target="_blank" rel="noopener">transfer from here</a></p>
+<h2 id="Private-method"><a href="#Private-method" class="headerlink" title="Private method"></a>Private method</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_mokedetective performSelector:@selector(handleGps:) withObject:info];</span><br></pre></td></tr></table></figure>
+<h2 id="OCMock-AFNetworking"><a href="#OCMock-AFNetworking" class="headerlink" title="OCMock AFNetworking"></a>OCMock AFNetworking</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">_mokeSession = OCMPartialMock([XYZSessionManager sharedSessionManager]);</span><br><span class="line"></span><br><span class="line">[XYZSessionManager setSharedInstance:_mokeSession];</span><br><span class="line"></span><br><span class="line">OCMStub([_mokeSession simplePost:XYZHttpPostBeacons withParam:[OCMArg any] success:[OCMArg any] failure:[OCMArg any]]).andDo(^(NSInvocation *invocation)&#123;</span><br><span class="line">        [_mokeDetective setValue:@&quot;123&quot; forKey:@&quot;floorId&quot;];</span><br><span class="line">        [_mokeDetective setValue:@&quot;456&quot; forKey:@&quot;siteId&quot;];</span><br><span class="line">        [_mokeDetective setValue:[NSNumber numberWithBool:isGetBeacons] forKey:@&quot;isGetBeaconsHttps&quot;];</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/OCMock 3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bob Wen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/37128815.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我怀念的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/29/OCMock 3/" itemprop="url">OCMock 3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-29T20:40:25+08:00">
+                2018-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="OCMock-3"><a href="#OCMock-3" class="headerlink" title="OCMock 3"></a>OCMock 3</h2><hr>
+<h2 id="Creating-mock-objects"><a href="#Creating-mock-objects" class="headerlink" title="Creating mock objects"></a>Creating mock objects</h2><h3 id="Class-mocks"><a href="#Class-mocks" class="headerlink" title="Class mocks"></a>Class mocks</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMClassMock([SomeClass class]);</span><br></pre></td></tr></table></figure>
+<h3 id="Protocol-mocks"><a href="#Protocol-mocks" class="headerlink" title="Protocol mocks"></a>Protocol mocks</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id protocolMock = OCMProtocolMock(@protocol(SomeProtocol));</span><br></pre></td></tr></table></figure>
+<h3 id="Strict-class-and-protocol-mocks"><a href="#Strict-class-and-protocol-mocks" class="headerlink" title="Strict class and protocol mocks"></a>Strict class and protocol mocks</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMStrictClassMock([SomeClass class]);</span><br><span class="line">id protocolMock = OCMStrictProtocolMock(@protocol(SomeProtocol));</span><br></pre></td></tr></table></figure>
+<h3 id="Partial-mocks"><a href="#Partial-mocks" class="headerlink" title="Partial mocks"></a>Partial mocks</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id partialMock = OCMPartialMock(anObject);</span><br></pre></td></tr></table></figure>
+<p>Creates a mock object that can be used in the same way as <code>anObject</code>. Any method that is not stubbed is forwarded to <code>anObject</code>. When a method is stubbed and that method is invoked using a reference to the real object, the mock will still be able to handle the invocation</p>
+<h3 id="Observer-mocks"><a href="#Observer-mocks" class="headerlink" title="Observer mocks"></a>Observer mocks</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id observerMock = OCMObserverMock();</span><br></pre></td></tr></table></figure>
+<p>Creates a mock object that can be used to observe notifications. The mock must be registered in order to receive notifications. </p>
+<h2 id="Stubbing-methods"><a href="#Stubbing-methods" class="headerlink" title="Stubbing methods"></a>Stubbing methods</h2><h3 id="Stubbing-methods-that-return-objects"><a href="#Stubbing-methods-that-return-objects" class="headerlink" title="Stubbing methods that return objects"></a>Stubbing methods that return objects</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod]).andReturn(anObject);</span><br></pre></td></tr></table></figure>
+<p>Tells the mock object that when <code>someMethod</code> is called it should return <code>anObject</code>.</p>
+<h3 id="Stubbing-methods-that-return-values"><a href="#Stubbing-methods-that-return-values" class="headerlink" title="Stubbing methods that return values"></a>Stubbing methods that return values</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock aMethodReturningABoolean]).andReturn(YES);</span><br></pre></td></tr></table></figure>
+<p>For methods that return primitive values it is important to use the right type of value. If, for example, a method returns a <code>long</code>but the stub uses an <code>int</code> an error will occur. The message will include the expected and the actual type (using Objective-C type codes such as “q” for <code>long</code> and “i” for <code>int</code>).</p>
+<h3 id="Delegating-to-another-method"><a href="#Delegating-to-another-method" class="headerlink" title="Delegating to another method"></a>Delegating to another method</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod]).andCall(anotherObject, @selector(aDifferentMethod));</span><br></pre></td></tr></table></figure>
+<p>In this case the mock object will call <code>aDifferentMethod</code> on <code>anotherObject</code> when <code>someMethod</code> is called. The signature of the replacement method must be the same as that of the method that is replaced. Arguments will be passed, and the return value of the replacement method is returned from the stubbed method. It is common to implement the replacement method in the test case itself.</p>
+<h3 id="Delegating-to-a-block"><a href="#Delegating-to-a-block" class="headerlink" title="Delegating to a block"></a>Delegating to a block</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod]).andDo(^(NSInvocation *invocation)</span><br><span class="line">    &#123; /* block that handles the method invocation */ &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Returning-values-in-pass-by-reference-arguments"><a href="#Returning-values-in-pass-by-reference-arguments" class="headerlink" title="Returning values in pass-by-reference arguments"></a>Returning values in pass-by-reference arguments</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethodWithReferenceArgument:[OCMArg setTo:anObject]]);</span><br><span class="line">OCMStub([mock someMethodWithReferenceArgument:[OCMArg setToValue:OCMOCK_VALUE((int)&#123;aValue&#125;)]]);</span><br></pre></td></tr></table></figure>
+<p>The mock object will set the reference that is passed to the method to <code>anObject</code> and <code>aValue</code>. Use <code>setTo:</code> for pass-by-reference arguments that return objects and <code>setToValue:</code> and <code>OCMOCK_VALUE()</code> for arguments that return primitives.</p>
+<h3 id="Invoking-block-arguments"><a href="#Invoking-block-arguments" class="headerlink" title="Invoking block arguments"></a>Invoking block arguments</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethodWithBlock:[OCMArg invokeBlock]]);</span><br><span class="line">OCMStub([mock someMethodWithBlock:([OCMArg invokeBlockWithArgs:@&quot;First arg&quot;, nil])]);</span><br></pre></td></tr></table></figure>
+<p>The mock object will invoke the block passed as an argument to the stubbed method. If the block takes arguments and <code>invokeBlock</code> is used, the default values for the argument types are used, e.g. zero for a numerical type. Using <code>invokeBlockWithArgs:</code> it is possible to specify which arguments to invoke the block with; non-object arguments must be wrapped in value objects and the expression must be wrapped in round brackets.</p>
+<h3 id="Throwing-exceptions"><a href="#Throwing-exceptions" class="headerlink" title="Throwing exceptions"></a>Throwing exceptions</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod]).andThrow(anException);</span><br></pre></td></tr></table></figure>
+<p>When <code>someMethod</code> is invoked the stub will throw <code>anException</code>.</p>
+<h3 id="Posting-notifications"><a href="#Posting-notifications" class="headerlink" title="Posting notifications"></a>Posting notifications</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod]).andPost(aNotification);</span><br></pre></td></tr></table></figure>
+<p>When <code>someMethod</code> is invoked the stub will post <code>aNotification</code>.</p>
+<h3 id="Chaining-stub-actions"><a href="#Chaining-stub-actions" class="headerlink" title="Chaining stub actions"></a>Chaining stub actions</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod]).andPost(aNotification).andReturn(aValue);</span><br></pre></td></tr></table></figure>
+<p>All actions such as <code>andReturn</code> and <code>andPost</code> can be chained. In this example the mock object will post a notification and return the value.</p>
+<h3 id="Forwarding-to-the-real-object-class"><a href="#Forwarding-to-the-real-object-class" class="headerlink" title="Forwarding to the real object / class"></a>Forwarding to the real object / class</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod]).andForwardToRealObject();</span><br></pre></td></tr></table></figure>
+<p>When using a partial mock and when mocking class methods it is possible to stub a method and forward it to the real object (in case of partial mocks) or to the class (when mocking class methods). This is only useful when chaining actions or when using <a href="http://ocmock.org/reference/#strict-mocks-and-expectations" target="_blank" rel="noopener">expectations</a>.</p>
+<h3 id="Doing-nothing"><a href="#Doing-nothing" class="headerlink" title="Doing nothing"></a>Doing nothing</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod]).andDo(nil);</span><br></pre></td></tr></table></figure>
+<p>It is possible to pass <code>nil</code> instead of a block to <code>andDo</code>. This is only useful with partial mocks or when mocking class methods. In these cases using <code>andDo(nil)</code> effectively suppresses the behaviour in the existing class.</p>
+<h2 id="Verifying-interactions"><a href="#Verifying-interactions" class="headerlink" title="Verifying interactions"></a>Verifying interactions</h2><h3 id="Verify-after-running"><a href="#Verify-after-running" class="headerlink" title="Verify-after-running"></a>Verify-after-running</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id mock = OCMClassMock([SomeClass class]);</span><br><span class="line"></span><br><span class="line">/* run code under test */</span><br><span class="line"></span><br><span class="line">OCMVerify([mock someMethod]);</span><br></pre></td></tr></table></figure>
+<p>Verifies that <code>someMethod</code> has been called by the code under test. If the method has not been invoked an error is reported. In Xcode and AppCode the error is reported on the line of the verify, for other test environments an exception is thrown.</p>
+<p>It is possible to use <a href="http://ocmock.org/reference/#argument-constraints" target="_blank" rel="noopener">argument constraints</a> in the verify statement.</p>
+<h3 id="Stubs-and-verification"><a href="#Stubs-and-verification" class="headerlink" title="Stubs and verification"></a>Stubs and verification</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">id mock = OCMClassMock([SomeClass class]);</span><br><span class="line">OCMStub([mock someMethod]).andReturn(myValue);</span><br><span class="line"></span><br><span class="line">/* run code under test */</span><br><span class="line"></span><br><span class="line">OCMVerify([mock someMethod]);</span><br></pre></td></tr></table></figure>
+<p>It is possible to stub a method and still verify that it has been called.</p>
+<h2 id="Argument-constraints"><a href="#Argument-constraints" class="headerlink" title="Argument constraints"></a>Argument constraints</h2><h3 id="The-any-constraint"><a href="#The-any-constraint" class="headerlink" title="The any constraint"></a>The <em>any</em> constraint</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethodWithAnArgument:[OCMArg any]])</span><br><span class="line">OCMStub([mock someMethodWithPointerArgument:[OCMArg anyPointer]])</span><br><span class="line">OCMStub([mock someMethodWithSelectorArgument:[OCMArg anySelector]])</span><br></pre></td></tr></table></figure>
+<p>Adds a stub for the methods which is active for all invocations, no matter what argument is passed. Pointers and selectors require special treatment as shown above. Arguments that are neither objects nor pointers or selectors cannot be ignored using an <em>any</em> placeholder (for details see this <a href="http://www.mulle-kybernetik.com/forum/viewtopic.php?f=4&amp;t=72" target="_blank" rel="noopener">forum thread</a>). See just below for a workaround.</p>
+<h3 id="Ignoring-non-object-arguments"><a href="#Ignoring-non-object-arguments" class="headerlink" title="Ignoring non-object arguments"></a>Ignoring non-object arguments</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[[mock stub] ignoringNonObjectArgs] someMethodWithIntArgument:0]</span><br></pre></td></tr></table></figure>
+<p>This tells the mock to ignore all non-object arguments in the invocation. It will accept any invocation of <code>someMethodWithIntArgument:</code> no matter what argument is actually passed. If the method has object arguments as well as non-object arguments, the object arguments can still be constrained as usual using the methods on <code>OCMArg</code>.</p>
+<p><strong>NOTE:</strong> this should have a modern syntax.</p>
+<h3 id="Matching-arguments"><a href="#Matching-arguments" class="headerlink" title="Matching arguments"></a>Matching arguments</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod:aValue)</span><br><span class="line">OCMStub([mock someMethod:[OCMArg isNil]])</span><br><span class="line">OCMStub([mock someMethod:[OCMArg isNotNil]])</span><br><span class="line">OCMStub([mock someMethod:[OCMArg isNotEqual:aValue]])</span><br><span class="line">OCMStub([mock someMethod:[OCMArg isKindOfClass:[SomeClass class]]])</span><br><span class="line">OCMStub([mock someMethod:[OCMArg checkWithSelector:aSelector onObject:anObject]])</span><br><span class="line">OCMStub([mock someMethod:[OCMArg checkWithBlock:^BOOL(id value) &#123; /* return YES if value is ok */ &#125;]])</span><br></pre></td></tr></table></figure>
+<p>If an argument is passed when the stub is created, the stub only matches invocations with that exact argument. Calls with different arguments are not matched. The <code>OCMArg</code> class provides several methods that allow matching values in different ways.</p>
+<p>For <code>checkWithSelector:onObject:</code>, when the mock object receives <code>someMethod:</code>, it invokes <code>aSelector</code> on <code>anObject</code>. If the method takes an argument the mock will pass the argument that was passed to <code>someMethod:</code>. The method should return a boolean indicating whether the argument matched the expectation or not.</p>
+<h3 id="Using-Hamcrest-matchers"><a href="#Using-Hamcrest-matchers" class="headerlink" title="Using Hamcrest matchers"></a>Using Hamcrest matchers</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMStub([mock someMethod:startsWith(@&quot;foo&quot;)])</span><br></pre></td></tr></table></figure>
+<p>It is also possible to use <a href="http://hamcrest.org/OCHamcrest/" target="_blank" rel="noopener">Hamcrest matchers</a>. This will only work when the Hamcrest framework is explicitly linked by the unit test bundle. OCMock does not declare a dependency on Hamcrest and discovers it using runtime functions.</p>
+<h2 id="Mocking-class-methods"><a href="#Mocking-class-methods" class="headerlink" title="Mocking class methods"></a>Mocking class methods</h2><h3 id="Stubbing-class-methods"><a href="#Stubbing-class-methods" class="headerlink" title="Stubbing class methods"></a>Stubbing class methods</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMClassMock([SomeClass class]);</span><br><span class="line">OCMStub([classMock aClassMethod]).andReturn(@&quot;Test string&quot;);</span><br><span class="line"></span><br><span class="line">// result is @&quot;Test string&quot;</span><br><span class="line">NSString *result = [SomeClass aClassMethod];</span><br></pre></td></tr></table></figure>
+<p>Stubs for class methods are set up exactly like stubs for instance methods. However, behind the scenes the mock object makes some changes to the class. (It dynamically creates a new meta class and makes the class use that instead of its own meta class.) This allows OCMock to stub calls which are made directly to the class.</p>
+<p><strong>IMPORTANT:</strong> If the mock object that added a stubbed class method is not deallocated then the stubbed method will persist across tests. If multiple mock objects manipulate the same class at the same time the behaviour is undefined.</p>
+<h3 id="Verifying-invocations-of-class-methods"><a href="#Verifying-invocations-of-class-methods" class="headerlink" title="Verifying invocations of class methods"></a>Verifying invocations of class methods</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMClassMock([SomeClass class]);</span><br><span class="line"></span><br><span class="line">/* run code under test */</span><br><span class="line"></span><br><span class="line">OCMVerify([classMock aClassMethod]);</span><br></pre></td></tr></table></figure>
+<p>Verification is done in the same way as with instance methods. As described above, calls can be made directly to the class.</p>
+<h3 id="Disambiguating-class-and-instance-methods"><a href="#Disambiguating-class-and-instance-methods" class="headerlink" title="Disambiguating class and instance methods"></a>Disambiguating class and instance methods</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMClassMock([SomeClass class]);</span><br><span class="line">OCMStub(ClassMethod([classMock ambiguousMethod])).andReturn(@&quot;Test string&quot;);</span><br><span class="line"></span><br><span class="line">// result is @&quot;Test string&quot;</span><br><span class="line">NSString *result = [SomeClass ambiguousMethod];</span><br></pre></td></tr></table></figure>
+<p>In cases where a class method should be stubbed but the class also has an instance method with the same name as the class method, as assumed with <code>ambiguousMethod</code> above, the intent to mock the class method must be made explicit using <code>ClassMethod()</code>.</p>
+<h3 id="Restoring-the-class"><a href="#Restoring-the-class" class="headerlink" title="Restoring the class"></a>Restoring the class</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMClassMock([SomeClass class]);</span><br><span class="line"></span><br><span class="line">/* do stuff */</span><br><span class="line"></span><br><span class="line">[classMock stopMocking];</span><br></pre></td></tr></table></figure>
+<p>The class can be returned to its original state by calling <code>stopMocking</code>. This is only necessary if the original state must be restored before the end of the test. The mock automatically calls <code>stopMocking</code> during its own deallocation.</p>
+<p>When the class is returned to its original state, its meta class will be switched back to the original meta class. This effectively removes all the stubs. However, this also makes it impossible for the mock to add new stubs or to verify interactions. You should really not use a mock after having called <code>stopMocking</code>.</p>
+<h2 id="Partial-mocks-1"><a href="#Partial-mocks-1" class="headerlink" title="Partial mocks"></a>Partial mocks</h2><h3 id="Stubbing-methods-1"><a href="#Stubbing-methods-1" class="headerlink" title="Stubbing methods"></a>Stubbing methods</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">id partialMock = OCMPartialMock(anObject);</span><br><span class="line">OCMStub([partialMock someMethod]).andReturn(@&quot;Test string&quot;);</span><br><span class="line"></span><br><span class="line">// result1 is @&quot;Test string&quot;</span><br><span class="line">NSString *result1 = [partialMock someMethod];</span><br><span class="line"></span><br><span class="line">// result2 is @&quot;Test string&quot;, too!</span><br><span class="line">NSString *result2 = [anObject someMethod];</span><br></pre></td></tr></table></figure>
+<p>From an API perspective stubs on partial mocks are set up in the same way as on class and protocol mocks. Partial mocks alter the class of the mocked object, though. (In fact, they create a subclass and switch the class of the mocked object to that subclass.) This means that calls using a reference to the real object, even including <code>self</code> in methods where the object calls itself, are also affected by stubs and expectations.</p>
+<h3 id="Verifying-invocations"><a href="#Verifying-invocations" class="headerlink" title="Verifying invocations"></a>Verifying invocations</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id partialMock = OCMPartialMock(anObject);</span><br><span class="line"></span><br><span class="line">/* run code under test */</span><br><span class="line"></span><br><span class="line">OCMVerify([partialMock someMethod]);</span><br></pre></td></tr></table></figure>
+<p>Verification is done in the same way as with class and protocol mocks. As described just above, calls using a reference to the real object are intercepted, too. There is no need to insure that a reference to the mock is used, calls can be made using references to the real object.</p>
+<h3 id="Restoring-the-object"><a href="#Restoring-the-object" class="headerlink" title="Restoring the object"></a>Restoring the object</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id partialMock = OCMPartialMock(anObject);</span><br><span class="line"></span><br><span class="line">/* do stuff */</span><br><span class="line"></span><br><span class="line">[partialMock stopMocking];</span><br></pre></td></tr></table></figure>
+<p>The real object can be returned to its original state by calling <code>stopMocking</code>. This is only necessary if the original state must be restored before the end of the test. The partial mock automatically calls <code>stopMocking</code> during its own deallocation.</p>
+<p>When the object is returned to its original state, its class will be switched back to the original class. This effectively removes all the stubs. However, this also makes it impossible for the partial mock to add new stubs or to verify interactions. You should really not use a partial mock after having called <code>stopMocking</code>.</p>
+<h2 id="Strict-mocks-and-expectations"><a href="#Strict-mocks-and-expectations" class="headerlink" title="Strict mocks and expectations"></a>Strict mocks and expectations</h2><h3 id="Expect-run-verify"><a href="#Expect-run-verify" class="headerlink" title="Expect-run-verify"></a>Expect-run-verify</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMClassMock([SomeClass class]);</span><br><span class="line">OCMExpect([classMock someMethodWithArgument:[OCMArg isNotNil]]);</span><br><span class="line"></span><br><span class="line">/* run code under test, which is assumed to call someMethod */</span><br><span class="line"></span><br><span class="line">OCMVerifyAll(classMock)</span><br></pre></td></tr></table></figure>
+<p>This is the original approach to mocking. First the mock object is set up with expectations, then the code under test is run, and afterwards the expectations are verified. If an expected method has not been invoked, or has not been invoked with the right arguments, then an error is reported. As shown it is possible to use <a href="http://ocmock.org/reference/#argument-constraints" target="_blank" rel="noopener">argument constraints</a> in the expect statement. Strict mocks can be created for classes and protocols.</p>
+<p>If in doubt use the newer <em>verify-after-running</em> approach described in <a href="http://ocmock.org/reference/#verifying-interactions" target="_blank" rel="noopener">Verifying interactions</a>.</p>
+<h3 id="Strict-mocks-and-failing-fast"><a href="#Strict-mocks-and-failing-fast" class="headerlink" title="Strict mocks and failing fast"></a>Strict mocks and failing fast</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMStrictClassMock([SomeClass class]);</span><br><span class="line">[classMock someMethod]; // this will throw an exception</span><br></pre></td></tr></table></figure>
+<p>The mock has been set up as a strict mock without any expectations. Calling <code>someMethod</code> will cause the mock to throw an exception. This is also known as <em>failing fast</em> because the test fails immediatly when the unexpected call is made. Only strict mocks fail fast.</p>
+<h3 id="Stub-actions-and-expect"><a href="#Stub-actions-and-expect" class="headerlink" title="Stub actions and expect"></a>Stub actions and expect</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMStrictClassMock([SomeClass class]);</span><br><span class="line">OCMExpect([classMock someMethod]).andReturn(@&quot;a string for testing&quot;);</span><br><span class="line"></span><br><span class="line">/* run code under test, which is assumed to call someMethod */</span><br><span class="line"></span><br><span class="line">OCMVerifyAll(classMock)</span><br></pre></td></tr></table></figure>
+<p>It is possible to use <code>andReturn</code>, <code>andThrow</code>, etc with expectations, too. This will then run the stub action if and when the method is invoked and, on verify, ensure that the method was actually invoked.</p>
+<h3 id="Verify-with-delay"><a href="#Verify-with-delay" class="headerlink" title="Verify with delay"></a>Verify with delay</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">id mock = OCMStrictClassMock([SomeClass class]);</span><br><span class="line">OCMExpect([mock someMethod]);</span><br><span class="line"></span><br><span class="line">/* run code under test, which is assumed to call someMethod eventually */</span><br><span class="line"></span><br><span class="line">OCMVerifyAllWithDelay(mock, aDelay);</span><br></pre></td></tr></table></figure>
+<p>In certain cases the expected method will only be called when the run loop is active. For these cases it is possible to delay the verification for a while. Note that <code>aDelay</code> (expressed as <code>NSTimeInterval</code>) is the maximum the mock will wait. It normally returns as soon as the expectations have been met.</p>
+<h3 id="Verifying-in-order"><a href="#Verifying-in-order" class="headerlink" title="Verifying in order"></a>Verifying in order</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">id mock = OCMStrictClassMock([SomeClass class]);</span><br><span class="line">[mock setExpectationOrderMatters:YES];</span><br><span class="line">OCMExpect([mock someMethod]);</span><br><span class="line">OCMExpect([mock anotherMethod]);</span><br><span class="line"></span><br><span class="line">// calling anotherMethod before someMethod will cause an exception to be thrown</span><br><span class="line">[mock anotherMethod];</span><br></pre></td></tr></table></figure>
+<p>The mock can be told to verify that expected methods are called in the same order as the expectations are set up. As soon as a method is called that is not next on the “expected list” the mock will fail fast and throw an exception.</p>
+<h2 id="Observer-mocks-1"><a href="#Observer-mocks-1" class="headerlink" title="Observer mocks"></a>Observer mocks</h2><h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id observerMock = OCMObserverMock();</span><br><span class="line">[notificatonCenter addMockObserver:aMock name:SomeNotification object:nil];</span><br><span class="line">[[mock expect] notificationWithName:SomeNotification object:[OCMArg any]];</span><br></pre></td></tr></table></figure>
+<p>Creates a mock object that can be used to observe notifications, registers it with a notification center, and tells the mock to expect <code>SomeNotification</code> with any object.</p>
+<h3 id="Verification"><a href="#Verification" class="headerlink" title="Verification"></a>Verification</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCMVerifyAll(observerMock);</span><br></pre></td></tr></table></figure>
+<p>Currently observer mocks are always strict, they will raise an exception when an unexpected notification is received. This implies that individual notifications cannot be verified after the fact. All notifications must be set up with expect, and they are verified together after the code under test has run using <code>OCMVerifyAll</code>.</p>
+<h2 id="Advanced-topics"><a href="#Advanced-topics" class="headerlink" title="Advanced topics"></a>Advanced topics</h2><h3 id="Failing-fast-for-regular-nice-mocks"><a href="#Failing-fast-for-regular-nice-mocks" class="headerlink" title="Failing fast for regular (nice) mocks"></a>Failing fast for regular (nice) mocks</h3><p>On a strict mock object, when a method is called that has not been mocked (using some variant of stub or expect) the mock object will raise an exception. It will <em>fail fast</em>. Regular mock objects simply return the default value for the return type. Regular mocks can be configured on a per-method basis to fail fast:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id mock = OCMClassMock([SomeClass class]);</span><br><span class="line">OCMReject([mock someMethod]);</span><br></pre></td></tr></table></figure>
+<p>In this case the mock will accept all methods except <code>someMethod</code>; if that is invoked the mock will throw an exception.</p>
+<h3 id="Re-throwing-fail-fast-exceptions-in-verify-all"><a href="#Re-throwing-fail-fast-exceptions-in-verify-all" class="headerlink" title="Re-throwing fail fast exceptions in verify all"></a>Re-throwing fail fast exceptions in verify all</h3><p>In fail-fast mode an exception might not cause the test to fail. This can happen when the call stack for the method does not end in the test. Fail fast exceptions will be re-thrown when <code>OCMVerifyAll</code> is called. This makes it possible to ensure that unwanted invocations from notifications etc. can be detected.</p>
+<h3 id="Stubbing-methods-that-create-objects"><a href="#Stubbing-methods-that-create-objects" class="headerlink" title="Stubbing methods that create objects"></a>Stubbing methods that create objects</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMClassMock([SomeClass class]);</span><br><span class="line">OCMStub([classMock copy])).andReturn(myObject);</span><br></pre></td></tr></table></figure>
+<p>It is possible to stub class and instance methods that conceptually create objects. OCMock automatically adjusts the reference count of the returned object when stubbing methods that have a name that begins with <code>alloc</code>, <code>new</code>, <code>copy</code>, or <code>mutableCopy</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id classMock = OCMClassMock([SomeClass class]);</span><br><span class="line">OCMStub([classMock new])).andReturn(myObject);</span><br></pre></td></tr></table></figure>
+<p>It possible, although not advisable, to stub out <code>new</code> for a class. If you find yourself doing this a lot, please consider the <a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank" rel="noopener">dependency injection</a> pattern.</p>
+<p><strong>IMPORTANT:</strong> It is not possible to stub the <code>init</code> method, because that is implemented by the mock itself.</p>
+<h3 id="Instance-based-method-swizzling"><a href="#Instance-based-method-swizzling" class="headerlink" title="Instance-based method swizzling"></a>Instance-based method swizzling</h3><p>In a nutshell, <a href="http://www.cocoadev.com/index.pl?MethodSwizzling" target="_blank" rel="noopener">Method Swizzling</a> describes the replacement of a method implementation with a different implementation at runtime. Using partial mocks and the <code>andCall</code> action OCMock allows such replacements on a per-instance basis.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id partialMock = OCMPartialMock(anObject);</span><br><span class="line">OCMStub([partialMock someMethod]).andCall(differentObject, @selector(differentMethod));</span><br></pre></td></tr></table></figure>
+<p>After these two lines, when <code>someMethod</code> is sent to <code>anObject</code> the implementation of that method is not invoked. Instead, <code>differentMethod</code> is called on <code>differentObject</code>. Other instances of the same class are not affected; for these the original implementation of <code>someMethod</code> is still invoked. The methods can have different names but their signatures should be the same.</p>
+<h2 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h2><h3 id="Only-one-mock-at-a-time-can-stub-class-methods-on-a-given-class"><a href="#Only-one-mock-at-a-time-can-stub-class-methods-on-a-given-class" class="headerlink" title="Only one mock at a time can stub class methods on a given class"></a>Only one mock at a time can stub class methods on a given class</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// don&apos;t do this</span><br><span class="line">id mock1 = OCMClassMock([SomeClass class]);</span><br><span class="line">OCMStub([mock1 aClassMethod]);</span><br><span class="line">id mock2 = OCMClassMock([SomeClass class]);</span><br><span class="line">OCMStub([mock2 anotherClassMethod]);</span><br></pre></td></tr></table></figure>
+<p>As mentioned above, if the mock object that added a stubbed class method is not deallocated then the stubbed method will persist, even across tests. If multiple mock objects manipulate the same class at the same time the behaviour is undefined.</p>
+<h3 id="Setting-up-expect-after-stub-on-the-same-method-does-not-work"><a href="#Setting-up-expect-after-stub-on-the-same-method-does-not-work" class="headerlink" title="Setting up expect after stub on the same method does not work"></a>Setting up expect after stub on the same method does not work</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">id mock = OCMStrictClassMock([SomeClass class]);</span><br><span class="line">OCMStub([mock someMethod]).andReturn(@&quot;a string&quot;);</span><br><span class="line">OCMExpect([mock someMethod]);</span><br><span class="line"></span><br><span class="line">/* run code under test */</span><br><span class="line"></span><br><span class="line">OCMVerifyAll(mock); // will complain that someMethod has not been called</span><br></pre></td></tr></table></figure>
+<p>The code above first sets up a stub for <code>someMethod</code> and afterwards an expectation for the same method. Due to the way mock objects are currently implemented any calls to <code>someMethod</code> are handled by the stub. This means that even if the method is called the verify fails. It is possible to avoid this problem by adding <code>andReturn</code> to the expect statement. You can also set up a stub after the expect.</p>
+<h3 id="Partial-mocks-cannot-be-created-for-certain-special-classes"><a href="#Partial-mocks-cannot-be-created-for-certain-special-classes" class="headerlink" title="Partial mocks cannot be created for certain special classes"></a>Partial mocks cannot be created for certain special classes</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id partialMockForString = OCMPartialMock(@&quot;Foo&quot;); // will throw an exception</span><br><span class="line"></span><br><span class="line">NSDate *date = [NSDate dateWithTimeIntervalSince1970:0];</span><br><span class="line">id partialMockForDate = OCMPartialMock(date); // will throw on some architectures</span><br></pre></td></tr></table></figure>
+<p>It is not possible to create partial mocks for instances of toll-free bridged class, e.g. <code>NSString</code>, or for objects represented with tagged pointers, e.g. <code>NSDate</code> on some architectures. The mock object will throw a descriptive exception should you try to do this.</p>
+<h3 id="Certain-methods-cannot-be-stubbed-or-verified"><a href="#Certain-methods-cannot-be-stubbed-or-verified" class="headerlink" title="Certain methods cannot be stubbed or verified"></a>Certain methods cannot be stubbed or verified</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id partialMockForString = OCMPartialMock(anObject);</span><br><span class="line">OCMStub([partialMock class]).andReturn(someOtherClass); // will not work</span><br></pre></td></tr></table></figure>
+<p>It is not possible to mock a number of core runtime methods. This includes <code>init</code>, <code>class</code>, <code>methodSignatureForSelector:</code>, <code>forwardInvocation:</code>, <code>respondsToSelector:</code>, and several others.</p>
+<p>Note that <code>class</code> is automatically stubbed to return the original class of the object, and not the dynamic subclass used by the partial mock.</p>
+<h3 id="Class-methods-on-NSString-and-NSArray-cannot-be-stubbed-or-verified"><a href="#Class-methods-on-NSString-and-NSArray-cannot-be-stubbed-or-verified" class="headerlink" title="Class methods on NSString and NSArray cannot be stubbed or verified"></a>Class methods on NSString and NSArray cannot be stubbed or verified</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id stringMock = OCMClassMock([NSString class]);</span><br><span class="line">// the following will not work</span><br><span class="line">OCMStub([stringMock stringWithContentsOfFile:[OCMArg any] encoding:NSUTF8StringEncoding error:[OCMArg setTo:nil]]);</span><br></pre></td></tr></table></figure>
+<p>It is not possible to stub or verify class methods on <code>NSString</code> and <code>NSArray</code>. Trying to do so has no effect.</p>
+<h3 id="Methods-on-NSObject-cannot-be-verified"><a href="#Methods-on-NSObject-cannot-be-verified" class="headerlink" title="Methods on NSObject cannot be verified"></a>Methods on NSObject cannot be verified</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id mock = OCMClassMock([NSObject class]);</span><br><span class="line"></span><br><span class="line">/* run code under test, which calls awakeAfterUsingCoder: */</span><br><span class="line"></span><br><span class="line">OCMVerify([mock awakeAfterUsingCoder:[OCMArg any]]); // still fails</span><br></pre></td></tr></table></figure>
+<p>It is not possible use <em>verify-after-running</em> with methods implemented in NSObject or a category on it. In some cases it is possible to stub the method and then verify it. It is possible to use <em>verify-after-running</em> when the method is overriden in a subclass.</p>
+<h3 id="Private-methods-in-core-Apple-classes-cannot-be-verified"><a href="#Private-methods-in-core-Apple-classes-cannot-be-verified" class="headerlink" title="Private methods in core Apple classes cannot be verified"></a>Private methods in core Apple classes cannot be verified</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">UIWindow *window = /* get window somehow */</span><br><span class="line">id mock = OCMPartialMock(window);</span><br><span class="line"></span><br><span class="line">/* run code under test, which causes _sendTouchesForEvent: to be invoked */</span><br><span class="line"></span><br><span class="line">OCMVerify([mock _sendTouchesForEvent:[OCMArg any]]); // still fails</span><br></pre></td></tr></table></figure>
+<p>It is not possible use <em>verify-after-running</em> with private methods in core Apple classes. Specifically, all methods with an underscore prefix and/or suffix in a class with either NS or UI as prefix. In some cases it is possible to stub the method and then verify it.</p>
+<h3 id="Verify-after-running-cannot-use-a-delay"><a href="#Verify-after-running-cannot-use-a-delay" class="headerlink" title="Verify-after-running cannot use a delay"></a>Verify-after-running cannot use a delay</h3><p>It is currently not possible to verify a method with a delay. This is currently only possible using the <em>expect-run-verify</em> approach described below in <a href="http://ocmock.org/reference/#strict-mocks-and-expectations" target="_blank" rel="noopener">strict mocks and expectations</a>.</p>
+<h3 id="Using-multiple-threads-in-tests"><a href="#Using-multiple-threads-in-tests" class="headerlink" title="Using multiple threads in tests"></a>Using multiple threads in tests</h3><p>OCMock is not fully thread-safe. Up to version 3.2.x OCMock was not thread-aware at all. Any combination of operations on a mock object from multiple threads was likely to cause issues and make the test fail.</p>
+<p>As of OCMock 3.3 it is still necessary to invoke all setup and verification operations from a single thread, preferrably the main thread of the test runner. It is possible, though, to use the mock object from multiple threads. The mock object can even be used from a different thread while its setup continues in the main thread. </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bob Wen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/37128815.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我怀念的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/29/测试/" itemprop="url">测试知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-29T10:40:25+08:00">
+                2018-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ul>
+<li>测试哑元(Dummy) - 只是帮助测试项目编译通过，不在具体测试里面起任何作用。</li>
+<li>测试桩(Stub) - 只是能返回帮助测试的值</li>
+<li>测试间谍(Spy) - 目的是测试被测单元接收到的值，也能返回值。Test Spy里肯定是要增加取参数的函数，用于测试</li>
+<li>仿冒对象(Fake): 用能更简单的实现，部分实行测试替代。</li>
+<li>仿制对象(Mock object) - 主要目的是测试函数调用，调用顺序。同时具备Stub， Spy功能。Mock不是仿真器，但是一个Mock Case的确可以仿真在某一个特定场景下被测模块与其他模块的交互。</li>
+</ul>
+<h2 id="Test-Double"><a href="#Test-Double" class="headerlink" title="Test Double"></a>Test Double</h2><hr>
+<blockquote>
+<p>Test Double is a generic term for any case where you replace a production object for testing purpose. There are various kinds of double list : Dummy、Fake、Stub、Mock and Spy.</p>
+</blockquote>
+<p>白話：</p>
+<p>Test Double 為<strong>假物件</strong>的統稱，Dummy、Fake、Stub、Mock 與 Spy 都算 Test Double。</p>
+<blockquote>
+<p>在 <a href="https://angular.io/guide/testing" target="_blank" rel="noopener">Angular Testing</a> 中，也是以 Test Double 統稱假物件。</p>
+</blockquote>
+<h2 id="Dummy"><a href="#Dummy" class="headerlink" title="Dummy"></a>Dummy</h2><hr>
+<blockquote>
+<p>Objects are passed around but never actually used. Usually they are just used to fill parameter lists.</p>
+</blockquote>
+<p>白話：測試時為了通過編譯而傳進假物件給 function，但這個假物件在測試中從來都沒被使用過。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">it(`should have getTitle() to return &apos;todos&apos;`, () =&gt; &#123;</span><br><span class="line">  const dummy = &#123;</span><br><span class="line">    lang: &apos;en-us&apos;</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  const target = new TitleComponent();  </span><br><span class="line">  expect(target.getTitle(dummy)).toBe(&apos;todos&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>getTitle()</code> 的參數要求傳入一物件，描述其顯示語系，不過目前語系並不是此次單元測試的重點，也就是邏輯根本不會跑到語系的部分。</p>
+<p>但因為 <code>getTitle()</code> 的參數要求，只好建立 Dummy 假物件滿足編譯要求。</p>
+<blockquote>
+<p>若參數允許 <code>null</code>，實務上也常常直接傳入 <code>null</code> 作為 Dummy。</p>
+</blockquote>
+<h2 id="Fake"><a href="#Fake" class="headerlink" title="Fake"></a>Fake</h2><hr>
+<blockquote>
+<p>Objects actually have working implementations, but usually take some shortcut which makes them not suitable for production.</p>
+</blockquote>
+<p>白話：測試時自己重新實作 function 取代原 function。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">it(`should use getTitle()`, () =&gt; &#123;</span><br><span class="line">  spyOn(component, &apos;getTitle&apos;).and.callFake(() =&gt; &apos;fake&apos;);</span><br><span class="line">  fixture.detectChanges();</span><br><span class="line"></span><br><span class="line">  htmlElement = debugElement.query(By.css(&apos;h1&apos;)).nativeElement;</span><br><span class="line">  </span><br><span class="line">  expect(htmlElement.textContent).toBe(&apos;fake&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>spyOn()</code> 提供 <code>and.callFake()</code>，可以對既有的 function 加以重新實作，在測試時，跑的就是假 function，而非原本的 function。</p>
+<h2 id="Stub"><a href="#Stub" class="headerlink" title="Stub"></a>Stub</h2><hr>
+<blockquote>
+<p>Stub provide canned answers to calls made during the test.</p>
+</blockquote>
+<p>白話：測試時建立包含假資料的假物件，並測試假資料。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">it(`should have &apos;onChange()&apos; to make &apos;selectedId&apos; as selected value`, () =&gt; &#123;</span><br><span class="line">  const stub = &lt;HTMLSelectElement&gt;&#123;</span><br><span class="line">    &apos;value&apos;: &apos;1&apos;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const target = new AppComponent();</span><br><span class="line">  target.onChange(stub);</span><br><span class="line">  expect(target.selectedId).toBe(&apos;1&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>onChange()</code> 要求傳入 <code>HTMLSelectElement</code> 物件，且測試也會用到 <code>HTMLSelectElement</code> 物件，此時可傳入包含假資料的 Stub 假物件，並在 <code>expect()</code> 測試回傳是否為 Stub 物件的假資料。</p>
+<blockquote>
+<p>Dummy 與 Stub 的差異在於：Dummy 只是個花瓶，不會真的拿來測試，但會拿 Stub 的假資料來測試。</p>
+</blockquote>
+<h2 id="Mock"><a href="#Mock" class="headerlink" title="Mock"></a>Mock</h2><hr>
+<blockquote>
+<p>Mocks are pre-programmed with expectations which form a specification of the calls they are expected to receive.</p>
+</blockquote>
+<p>白話：測試時不在乎 function 回傳值，只在乎該 function 有沒有被呼叫過。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">it(`should use &apos;onChange()&apos; on &apos;change&apos; event`, () =&gt; &#123;</span><br><span class="line">  spyOn(component, &apos;onChange&apos;);</span><br><span class="line">  debugElement.query(By.css(&apos;#TDDSelect&apos;)).triggerEventHandler(&apos;change&apos;, null);</span><br><span class="line">  </span><br><span class="line">  expect(component.onChange).toHaveBeenCalled();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在測試時使用 <code>triggerEventHandler()</code> 觸發了 <code>change</code> event，因此我們要測試的是被 Mock 的 <code>onChange()</code> method 是否有被執行過，因此在 <code>expect()</code> 使用了 <code>toHaveBeenCalled()</code> 測試。</p>
+<blockquote>
+<p>Jasmine 這裏的 Spy 實質上是個 Mock，只是 Jasmine 用了 Spy 這個單字。</p>
+</blockquote>
+<h2 id="Spy"><a href="#Spy" class="headerlink" title="Spy"></a>Spy</h2><hr>
+<blockquote>
+<p>Spies are stubs that also record some information based on how they were called.</p>
+</blockquote>
+<p>白話：測試時當 Stub 與 Mock 無法滿足測試時，自己寫 Spy 埋入一段測試邏輯。</p>
+<p>實務上 Jasmine 提供的方法已經相當夠用，不太需要自己埋測試邏輯，不過當要 mock 沒有 class 的 function 或 arrow function 時，就會用到 Spy。</p>
+<p><strong>shipping.service.ts</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from &apos;@angular/core&apos;;</span><br><span class="line"></span><br><span class="line">@Injectable()</span><br><span class="line">export class ShippingService &#123;</span><br><span class="line">  calculateFee(weight: number, logistics: (number) =&gt; number): number &#123;</span><br><span class="line">    return logistics(weight);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>計算運費，因為依賴反轉，我們希望 user 自己提供計算運費的邏輯，而非寫死在底層。</p>
+<p><strong>shipping.service.spec.ts</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">it(`should call arrow function`, () =&gt; &#123;</span><br><span class="line">  const spy = jasmine.createSpy(&apos;logistics&apos;);</span><br><span class="line">  </span><br><span class="line">  target.calculateFee(null, spy);</span><br><span class="line"></span><br><span class="line">  expect(spy).toHaveBeenCalled();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Service 的單元測試，因為運算邏輯由 user 提供，因此只要測試到使用到 arrow function 即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const spy = jasmine.createSpy(&apos;logistics&apos;);</span><br></pre></td></tr></table></figure>
+<p>使用 <code>jasmine.createSpy()</code> 建立了 arrow function 的 Spy。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target.calculateFee(null, spy);</span><br></pre></td></tr></table></figure>
+<p>執行 service 的 <code>calculateFee()</code> method，因為不是要測試結果，因此 <code>weight</code> 參數並不重要，第 1 個參數傳入 <code>null</code> 即可，此時的 <code>null</code> 就是 Dummy。</p>
+<p>第 2 個參數就是我們要測試的重點，判斷是否有被呼叫到，因此傳入 Spy。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expect(spy).toHaveBeenCalled();</span><br></pre></td></tr></table></figure>
+<p>判斷 Spy 是否有被呼叫到。</p>
+<blockquote>
+<p>實務上會自己建立 Spy mock 沒有 class 的 function 或 arrow function。</p>
+</blockquote>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><hr>
+<ul>
+<li>一般人習慣稱為 Mock，但實際上 Test Double 才是觀念上的統稱。</li>
+<li>Dummy 主要是提供測試用不到的假資料，但 Stub 是測試用得到的假資料。</li>
+<li>Jasmine 將 Mock 與 Spy 統稱為 Spy，不過嚴格來說，Mock 與 Spy 觀念上仍然不同。</li>
+</ul>
 
           
         
@@ -520,6 +1041,181 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/XCTest/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bob Wen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/37128815.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我怀念的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/01/XCTest/" itemprop="url">测试知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T20:40:25+08:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="XCTest"><a href="#XCTest" class="headerlink" title="XCTest"></a>XCTest</h1><hr>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><hr>
+<p><a href="">常用断言</a></p>
+<p>如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。 </p>
+<p>最基本的断言 </p>
+<p>表示如果expression满足，则测试通过，否则对应format的错误。</p>
+<blockquote>
+<p>XCTAssert(expression, format…)</p>
+<p>直接Fail的断言</p>
+</blockquote>
+<blockquote>
+<p>XCTFail(format…)</p>
+</blockquote>
+<p>其他一些常用的断言：</p>
+<blockquote>
+<p>XCTAssertTrue(expression, format…)</p>
+<p>XCTAssertFalse(expression, format…)</p>
+<p>XCTAssertEqual(expression1, expression2, format…)</p>
+<p>XCTAssertNotEqual(expression1, expression2, format…)</p>
+<p>XCTAssertEqualWithAccuracy(expression1, expression2, accuracy, format…)</p>
+<p>XCTAssertNotEqualWithAccuracy(expression1, expression2, accuracy, format…)</p>
+<p>XCTAssertNil(expression, format…) XCTAssertNotNil(expression, format…)</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -570,7 +1266,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -581,7 +1277,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -592,7 +1288,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="我怀念的">
 <meta property="og:description" content="Facing to Test Problemsmocking-singletons-with-ocmockEnter categoriesThe simplest way around this problem is to create a category on the singleton in your test code that overrides the singleton instan">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-29T03:48:13.722Z">
+<meta property="og:updated_time" content="2018-08-29T05:27:28.821Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Facing to Test Problems">
 <meta name="twitter:description" content="Facing to Test Problemsmocking-singletons-with-ocmockEnter categoriesThe simplest way around this problem is to create a category on the singleton in your test code that overrides the singleton instan">
@@ -367,6 +367,7 @@
 <p><a href="https://twobitlabs.com/2011/02/mocking-singletons-with-ocmock/" target="_blank" rel="noopener">transfer from here</a></p>
 <h2 id="Private-method"><a href="#Private-method" class="headerlink" title="Private method"></a>Private method</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_mokedetective performSelector:@selector(handleGps:) withObject:info];</span><br></pre></td></tr></table></figure>
 <h2 id="OCMock-AFNetworking"><a href="#OCMock-AFNetworking" class="headerlink" title="OCMock AFNetworking"></a>OCMock AFNetworking</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">_mokeSession = OCMPartialMock([XYZSessionManager sharedSessionManager]);</span><br><span class="line"></span><br><span class="line">[XYZSessionManager setSharedInstance:_mokeSession];</span><br><span class="line"></span><br><span class="line">OCMStub([_mokeSession simplePost:XYZHttpPostBeacons withParam:[OCMArg any] success:[OCMArg any] failure:[OCMArg any]]).andDo(^(NSInvocation *invocation)&#123;</span><br><span class="line">        [_mokeDetective setValue:@&quot;123&quot; forKey:@&quot;floorId&quot;];</span><br><span class="line">        [_mokeDetective setValue:@&quot;456&quot; forKey:@&quot;siteId&quot;];</span><br><span class="line">        [_mokeDetective setValue:[NSNumber numberWithBool:isGetBeacons] forKey:@&quot;isGetBeaconsHttps&quot;];</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Test-method"><a href="#Test-method" class="headerlink" title="Test method"></a>Test method</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//ON</span><br><span class="line">OCMVerify([_mokedetective performSelector:@selector(sendBeaconsHttps:)]);</span><br><span class="line">//OFF</span><br><span class="line">OCMReject([_mokedetective performSelector:@selector(sendBeaconsHttps:)]);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -408,6 +409,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/31/1.前言/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -488,7 +493,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -559,7 +564,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Facing-to-Test-Problems"><span class="nav-number">1.</span> <span class="nav-text">Facing to Test Problems</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mocking-singletons-with-ocmock"><span class="nav-number">1.1.</span> <span class="nav-text">mocking-singletons-with-ocmock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Enter-categories"><span class="nav-number">1.1.1.</span> <span class="nav-text">Enter categories</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Making-the-mock-available-to-other-tests"><span class="nav-number">1.1.2.</span> <span class="nav-text">Making the mock available to other tests</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#But-sometimes-I-want-the-real-NSNotificationCenter"><span class="nav-number">1.1.3.</span> <span class="nav-text">But sometimes I want the real NSNotificationCenter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.1.4.</span> <span class="nav-text">Conclusion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-method"><span class="nav-number">1.2.</span> <span class="nav-text">Private method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OCMock-AFNetworking"><span class="nav-number">1.3.</span> <span class="nav-text">OCMock AFNetworking</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Facing-to-Test-Problems"><span class="nav-number">1.</span> <span class="nav-text">Facing to Test Problems</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mocking-singletons-with-ocmock"><span class="nav-number">1.1.</span> <span class="nav-text">mocking-singletons-with-ocmock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Enter-categories"><span class="nav-number">1.1.1.</span> <span class="nav-text">Enter categories</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Making-the-mock-available-to-other-tests"><span class="nav-number">1.1.2.</span> <span class="nav-text">Making the mock available to other tests</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#But-sometimes-I-want-the-real-NSNotificationCenter"><span class="nav-number">1.1.3.</span> <span class="nav-text">But sometimes I want the real NSNotificationCenter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.1.4.</span> <span class="nav-text">Conclusion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Private-method"><span class="nav-number">1.2.</span> <span class="nav-text">Private method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OCMock-AFNetworking"><span class="nav-number">1.3.</span> <span class="nav-text">OCMock AFNetworking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-method"><span class="nav-number">1.4.</span> <span class="nav-text">Test method</span></a></li></ol></li></ol></div>
             
 
           </div>

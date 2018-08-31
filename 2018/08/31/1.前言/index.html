@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="单元测试,iOS," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="XCTest 单元测试 常用断言 如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。  最基本的断言  表示如果expression满足，则测试通过，否则对应format的错误。  XCTAssert(expression, format…) 直接Fail的断言   XCTFail(format…)  其他一些常用的断言：  XCTAssertTrue(expression, for">
-<meta name="keywords" content="单元测试,iOS">
+<meta name="description" content="-– title: iOS的看门狗机制 date: 2018/8/31 20:40:25  categories:  - iOS tags: - 看门狗机制 comments: true -– 1.前言　　 前几天项目闪退之后遇到的一个Crash，之后逛了许多论坛，博客都没有找到满意的回复  在自己做了深入的研究之后，对iOS的看门狗机制有了一个基本的了解  而有很多奇怪的Crash可能恰恰就是因">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OC测试">
-<meta property="og:url" content="http://yoursite.com/2018/08/01/XCTest/index.html">
+<meta property="og:title" content="我怀念的">
+<meta property="og:url" content="http://yoursite.com/2018/08/31/1.前言/index.html">
 <meta property="og:site_name" content="我怀念的">
-<meta property="og:description" content="XCTest 单元测试 常用断言 如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。  最基本的断言  表示如果expression满足，则测试通过，否则对应format的错误。  XCTAssert(expression, format…) 直接Fail的断言   XCTFail(format…)  其他一些常用的断言：  XCTAssertTrue(expression, for">
+<meta property="og:description" content="-– title: iOS的看门狗机制 date: 2018/8/31 20:40:25  categories:  - iOS tags: - 看门狗机制 comments: true -– 1.前言　　 前几天项目闪退之后遇到的一个Crash，之后逛了许多论坛，博客都没有找到满意的回复  在自己做了深入的研究之后，对iOS的看门狗机制有了一个基本的了解  而有很多奇怪的Crash可能恰恰就是因">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-29T03:47:56.822Z">
+<meta property="og:updated_time" content="2018-08-31T12:17:03.559Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OC测试">
-<meta name="twitter:description" content="XCTest 单元测试 常用断言 如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。  最基本的断言  表示如果expression满足，则测试通过，否则对应format的错误。  XCTAssert(expression, format…) 直接Fail的断言   XCTFail(format…)  其他一些常用的断言：  XCTAssertTrue(expression, for">
+<meta name="twitter:title" content="我怀念的">
+<meta name="twitter:description" content="-– title: iOS的看门狗机制 date: 2018/8/31 20:40:25  categories:  - iOS tags: - 看门狗机制 comments: true -– 1.前言　　 前几天项目闪退之后遇到的一个Crash，之后逛了许多论坛，博客都没有找到满意的回复  在自己做了深入的研究之后，对iOS的看门狗机制有了一个基本的了解  而有很多奇怪的Crash可能恰恰就是因">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/01/XCTest/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/31/1.前言/"/>
 
 
 
 
 
-  <title>OC测试 | 我怀念的</title>
+  <title> | 我怀念的</title>
   
 
 
@@ -263,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/XCTest/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/31/1.前言/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bob Wen">
@@ -280,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OC测试</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -292,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T20:40:25+08:00">
-                2018-08-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-31T20:17:03+08:00">
+                2018-08-31
               </time>
             
 
@@ -302,28 +301,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -352,29 +329,43 @@
       
 
       
-        <h1 id="XCTest"><a href="#XCTest" class="headerlink" title="XCTest"></a>XCTest</h1><hr>
-<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><hr>
-<p><a href="">常用断言</a></p>
-<p>如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。 </p>
-<p>最基本的断言 </p>
-<p>表示如果expression满足，则测试通过，否则对应format的错误。</p>
-<blockquote>
-<p>XCTAssert(expression, format…)</p>
-<p>直接Fail的断言</p>
-</blockquote>
-<blockquote>
-<p>XCTFail(format…)</p>
-</blockquote>
-<p>其他一些常用的断言：</p>
-<blockquote>
-<p>XCTAssertTrue(expression, format…)</p>
-<p>XCTAssertFalse(expression, format…)</p>
-<p>XCTAssertEqual(expression1, expression2, format…)</p>
-<p>XCTAssertNotEqual(expression1, expression2, format…)</p>
-<p>XCTAssertEqualWithAccuracy(expression1, expression2, accuracy, format…)</p>
-<p>XCTAssertNotEqualWithAccuracy(expression1, expression2, accuracy, format…)</p>
-<p>XCTAssertNil(expression, format…) XCTAssertNotNil(expression, format…)</p>
-</blockquote>
+        <p>-–</p>
+<p>title: iOS的看门狗机制</p>
+<p>date: 2018/8/31 20:40:25 </p>
+<p>categories: </p>
+<p>- iOS</p>
+<p>tags:</p>
+<p>- 看门狗机制</p>
+<p>comments: true</p>
+<p>-–</p>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言　　"></a>1.前言　　</h2><p> 前几天项目闪退之后遇到的一个Crash，之后逛了许多论坛，博客都没有找到满意的回复</p>
+<p> 在自己做了深入的研究之后，对<strong>iOS的看门狗机制</strong>有了一个基本的了解</p>
+<p> 而有很多奇怪的Crash可能恰恰就是因为iOS的看门狗机制导致的</p>
+<p> 今天分享出来，希望能帮助到后来者，下面我们先来看看Crash Report</p>
+<h2 id="2-iOS-App-Crash-Report-分析"><a href="#2-iOS-App-Crash-Report-分析" class="headerlink" title="2. iOS App Crash Report 分析"></a>2. iOS App Crash Report 分析</h2> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Exception Type: 00000020</span><br><span class="line">Exception Codes: 0x000000008badf00d</span><br><span class="line">Highlighted Thread: 0</span><br><span class="line"> </span><br><span class="line">Application Specific Information:</span><br><span class="line">&lt;BKNewProcess: 0x12cd26cf0; com.scasy.Dinnn; pid: 248; hostpid: -1&gt; has active assertions beyond permitted time:</span><br><span class="line">&#123;(</span><br><span class="line">&lt;BKProcessAssertion: 0x12ce1b400&gt; id: 248-C89C6FAD-B496-46ED-B59A-20D976A02D10 name: Called by ExternalAccessory, from &lt;redacted&gt; process: &lt;BKNewProcess: 0x12cd26cf0; com.scasy.Dinnn; pid: 248; hostpid: -1&gt; permittedBackgroundDuration: 180.000000 reason: finishTask owner pid:248 preventSuspend preventIdleSleep preventSuspendOnSleep</span><br><span class="line">)&#125;</span><br><span class="line"> </span><br><span class="line">Elapsed total CPU time (seconds): 0.130 (user 0.130, system 0.000), 1% CPU</span><br><span class="line">Elapsed application CPU time (seconds): 0.044, 0% CPU</span><br><span class="line"> </span><br><span class="line">Thread 0 name: Dispatch queue: com.apple.main-thread</span><br><span class="line">Thread 0:</span><br><span class="line">0 libsystem_kernel.dylib 0x342ec474 mach_msg_trap + 20</span><br><span class="line">1 libsystem_kernel.dylib 0x342ec269 mach_msg + 37</span><br><span class="line">2 CoreFoundation 0x25a1256f __CFRunLoopServiceMachPort + 143</span><br><span class="line">3 CoreFoundation 0x25a10b15 __CFRunLoopRun + 1013</span><br><span class="line">4 CoreFoundation 0x2595d1fd CFRunLoopRunSpecific + 473</span><br><span class="line">5 CoreFoundation 0x2595d00f CFRunLoopRunInMode + 103</span><br><span class="line">6 Foundation 0x266c7139 -[NSRunLoop(NSRunLoop) runMode:beforeDate:] + 261</span><br><span class="line">7 Foundation 0x26715221 -[NSRunLoop(NSRunLoop) run] + 77</span><br><span class="line">8 Dinnn 0x0014af59 -[ConnectServerViewController updateInitDinnnThread:] (ConnectServerViewController.m:425)</span><br><span class="line">9 Foundation 0x2678c5cb __NSThreadPerformPerform + 383</span><br><span class="line">10 CoreFoundation 0x25a12fad __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__ + 13</span><br><span class="line">11 CoreFoundation 0x25a123bb __CFRunLoopDoSources0 + 215</span><br><span class="line">12 CoreFoundation 0x25a10a21 __CFRunLoopRun + 769</span><br><span class="line">13 CoreFoundation 0x2595d1fd CFRunLoopRunSpecific + 473</span><br><span class="line">14 CoreFoundation 0x2595d00f CFRunLoopRunInMode + 103</span><br><span class="line">15 GraphicsServices 0x2d2d81fd GSEventRunModal + 133</span><br><span class="line">16 UIKit 0x29129a05 UIApplicationMain + 1437</span><br><span class="line">17 Dinnn 0x00088c47 main (main.m:17)</span><br><span class="line">18 libdyld.dylib 0x34235aad start + 1</span><br></pre></td></tr></table></figure>
+<p>我们先定位异常类型： <strong>Exception Type: 00000020</strong></p>
+<p>简而言之，Exception Type: 00000020 意味着你正在做的异步网络在主线程，当连接或运行缓慢，应用程序可以终止iOS。这将随机发生。</p>
+<p>最常见的原因是在一个网络中的应用程序的看门狗超时崩溃是同步网络的主要线程。</p>
+<p><strong>这里有三个因素：</strong></p>
+<p>1.同步网络-这是您的网络请求和阻止等待响应的地方。</p>
+<p>2.主线程-同步网络一般不理想，但它会导致特定问题，如果你在主线程上做的话。请记住，主线程负责运行用户界面。如果你阻塞主线程的任何显着的时间，用户界面变得很迟钝。</p>
+<p>3.长期超时-如果网络消失了（例如，用户是在火车进入隧道），任何挂起的网络请求不会失败直到超时过期了。大多数网络超时是以分钟计算，即阻塞同步网络请求在主线程可以同时保持用户界面的响应时间。</p>
+<p>试图通过减少网络超时来避免这个问题是一个不好的想法。在某些情况下，它可以采取许多秒的网络请求成功，如果你总是提前时间，那么你永远不会取得任何进展。</p>
+<p>看门狗-为了保持用户界面的响应，iOS系统包括一个看门狗机制。如果您的应用程序未能响应某些用户界面事件（启动、暂停、恢复、终止）的时间，该看门狗将杀死您的应用程序，并产生一个看门狗超时崩溃报告。</p>
+<p>这个问题的一个棘手的方面是，它高度依赖于网络环境。如果你总是在你的办公室里测试你的应用，在你的网络连接是好的，你永远不会看到这种类型的崩溃。然而，一旦你开始部署你的应用程序，最终用户谁会运行在各种网络环境崩溃，像这样。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果您在主线程上进行同步联网呼叫，您的应用程序将受到看门狗超时崩溃，当它部署到一个广泛的环境。</p>
+<p>从上面的Crash report中的</p>
+<p>6，7，行我们能看到具体原因， 8 行 我们可以看到具体位置。</p>
+<p>具体：</p>
+<p>关于<strong>-(BOOL)runMode:(NSString *)mode beforeDate:(NSDate *)date;</strong>方法</p>
+<p>指定runloop模式来处理输入源，首个输入源或date结束退出。</p>
+<p>暂停当前处理的流程，转而处理其他输入源，当date设置为<a href="将来，基本不会到达的时间">NSDate distantFuture</a>，<strong>所以除非处理其他输入源结束，否则永不退出处理暂停的当前处理的流程。</strong></p>
+<p><strong>报告里很明显告诉我们这里被堵塞了，说明这个Run loop当前是在主线程上，所以最后我们的APP被iOS的看门狗机制杀死了。</strong></p>
+<h3 id="终："><a href="#终：" class="headerlink" title="终："></a>终：</h3><p>一旦你确认这个问题与你的网络代码相关，有一个共同的解决方案：</p>
+<p><strong>异步网络-这个问题的最佳解决方案是异步运行您的网络代码。</strong>异步网络代码有很多优点，至少是它可以让你安全地访问网络，而不必担心线程。</p>
+<p>在辅助线程同步网络如果它运行你的网络代码异步的比登天还难（也许你有一个大的便携式的代码库，假定同步组网工作），你可以通过在辅助线程上运行你的同步码避免看门狗。</p>
+<p>如何异步运行网络代码，包括多线程这个你可以查看Apple文档相关资料</p>
+<p>关于iOS看门机制还有什么不懂欢迎留言。</p>
 
       
     </div>
@@ -390,14 +381,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/单元测试/" rel="tag"># 单元测试</a>
-          
-            <a href="/tags/iOS/" rel="tag"># iOS</a>
-          
-        </div>
-      
 
       
       
@@ -407,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/01/frist-try/" rel="next" title="OC 反射机制">
-                <i class="fa fa-chevron-left"></i> OC 反射机制
+              <a href="/2018/08/29/Facing to Test Problems/" rel="next" title="Facing to Test Problems">
+                <i class="fa fa-chevron-left"></i> Facing to Test Problems
               </a>
             
           </div>
@@ -416,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/29/测试/" rel="prev" title="Test Double">
-                Test Double <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -571,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XCTest"><span class="nav-number">1.</span> <span class="nav-text">XCTest</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试"><span class="nav-number">1.1.</span> <span class="nav-text">单元测试</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1.前言　　</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-iOS-App-Crash-Report-分析"><span class="nav-number">2.</span> <span class="nav-text">2. iOS App Crash Report 分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#终："><span class="nav-number">2.2.</span> <span class="nav-text">终：</span></a></li></ol></li></ol></div>
             
 
           </div>

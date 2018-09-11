@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础知识," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="iOS- UITableViewCell对象是怎么重用的 ?OS设备的内存有限，如果用UITableView显示成千上万条数据， 就需要成千上万个UITableViewCell对象的话， 那将会耗尽iOS设备的内存。要解决该问题，需要重用UITableViewCell对象。 （苹果一向很注重的应用的性能优化和用户的体验） 重用原理：当滚动列表时，部分UITableViewCell会移出窗口， UI">
+<meta name="keywords" content="基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UITableViewCell对象重用">
+<meta property="og:url" content="http://yoursite.com/2018/09/11/iOS- UITableViewCell对象是怎么重用的/index.html">
+<meta property="og:site_name" content="我怀念的">
+<meta property="og:description" content="iOS- UITableViewCell对象是怎么重用的 ?OS设备的内存有限，如果用UITableView显示成千上万条数据， 就需要成千上万个UITableViewCell对象的话， 那将会耗尽iOS设备的内存。要解决该问题，需要重用UITableViewCell对象。 （苹果一向很注重的应用的性能优化和用户的体验） 重用原理：当滚动列表时，部分UITableViewCell会移出窗口， UI">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://gameprogrammingpatterns.com/images/object-pool-heap-fragment.png">
+<meta property="og:updated_time" content="2018-09-11T13:09:51.271Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UITableViewCell对象重用">
+<meta name="twitter:description" content="iOS- UITableViewCell对象是怎么重用的 ?OS设备的内存有限，如果用UITableView显示成千上万条数据， 就需要成千上万个UITableViewCell对象的话， 那将会耗尽iOS设备的内存。要解决该问题，需要重用UITableViewCell对象。 （苹果一向很注重的应用的性能优化和用户的体验） 重用原理：当滚动列表时，部分UITableViewCell会移出窗口， UI">
+<meta name="twitter:image" content="http://gameprogrammingpatterns.com/images/object-pool-heap-fragment.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/11/iOS- UITableViewCell对象是怎么重用的/"/>
+
+
+
+
+
+  <title>UITableViewCell对象重用 | 我怀念的</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我怀念的</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/iOS- UITableViewCell对象是怎么重用的/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bob Wen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/37128815.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我怀念的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">UITableViewCell对象重用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-11T21:00:11+08:00">
+                2018-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="iOS-UITableViewCell对象是怎么重用的"><a href="#iOS-UITableViewCell对象是怎么重用的" class="headerlink" title="iOS- UITableViewCell对象是怎么重用的 ?"></a>iOS- UITableViewCell对象是怎么重用的 ?</h1><p>OS设备的内存有限，如果用UITableView显示成千上万条数据，</p>
+<p>就需要成千上万个UITableViewCell对象的话，</p>
+<p>那将会耗尽iOS设备的内存。要解决该问题，需要重用UITableViewCell对象。</p>
+<p>（苹果一向很注重的应用的性能优化和用户的体验）</p>
+<h3 id="重用原理："><a href="#重用原理：" class="headerlink" title="重用原理："></a>重用原理：</h3><p>当滚动列表时，部分UITableViewCell会移出窗口，</p>
+<p>UITableView会将窗口外的UITableViewCell放入一个对象池中，等待重用。</p>
+<p>当UITableView要求dataSource返回UITableViewCell时，</p>
+<p>dataSource会先查看这个对象池，</p>
+<p>如果池中有未使用的UITableViewCell，dataSource会用新的数据配置这个UITableViewCell，然后返回给UITableView，重新显示到窗口中，从而避免创建新对象。</p>
+<h4 id="还有一个非常重要的问题："><a href="#还有一个非常重要的问题：" class="headerlink" title="还有一个非常重要的问题："></a>还有一个非常重要的问题：</h4><p>有时候需要自定义UITableViewCell(用一个子类继承UITableViewCell)，而且每一行用的不一定是同一种UITableViewCell(如QQ，短信聊天布局)，</p>
+<p>所以一个UITableView可能拥有不同类型的UITableViewCell，</p>
+<p>对象池中也会有很多不同类型的UITableViewCell，</p>
+<p>那么UITableView在重用UITableViewCell时可能会得到错误类型的UITableViewCell！</p>
+<h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h4><p>UITableViewCell有个NSString *reuseIdentifier属性，可以在初始化UITableViewCell的时候传入一个特定的字符串标识来设置reuseIdentifier(一般用UITableViewCell的类名)。当UITableView要求dataSource返回UITableViewCell时，先通过一个字符串标识到对象池中查找对应类型的UITableViewCell对象，如果有，就重用，如果没有，就传入这个字符串标识来初始化一个UITableViewCell对象。</p>
+<h4 id="论文参考："><a href="#论文参考：" class="headerlink" title="论文参考："></a>论文参考：</h4><h1 id="Object-Pool"><a href="#Object-Pool" class="headerlink" title="Object Pool"></a>Object Pool</h1><h2 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#intent" target="_blank" rel="noopener">Intent</a></h2><p><em>Improve performance and memory use by reusing objects from a fixed pool instead of allocating and freeing them individually.</em></p>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#motivation" target="_blank" rel="noopener">Motivation</a></h2><p>We’re working on the visual effects for our game. When the hero casts a spell, we want a shimmer of sparkles to burst across the screen. This calls for a <em>particle system</em>, an engine that spawns little sparkly graphics and animates them until they wink out of existence.</p>
+<p>Since a single wave of the wand could cause hundreds of particles to be spawned, our system needs to be able to create them very quickly. More importantly, we need to make sure that creating and destroying these particles doesn’t cause<em>memory fragmentation</em>.</p>
+<h3 id="The-curse-of-fragmentation"><a href="#The-curse-of-fragmentation" class="headerlink" title="The curse of fragmentation"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#the-curse-of-fragmentation" target="_blank" rel="noopener">The curse of fragmentation</a></h3><p>Programming for a game console or mobile device is closer to embedded programming than conventional PC programming in many ways. Memory is scarce, users expect games to be rock solid, and efficient compacting memory managers are rarely available. In this environment, memory fragmentation is deadly.</p>
+<p>Fragmentation means the free space in our heap is broken into smaller pieces of memory instead of one large open block. The <em>total</em> memory available may be large, but the largest <em>contiguous</em> region might be painfully small. Say we’ve got fourteen bytes free, but it’s fragmented into two seven-byte pieces with a chunk of in-use memory between them. If we try to allocate a twelve-byte object, we’ll fail. No more sparklies on screen.</p>
+<p>It’s like trying to parallel park on a busy street where the already parked cars are spread out a bit too far. If they’d bunch up, there would be room, but the free space is <em>fragmented</em> into bits of open curb between half a dozen cars.</p>
+<p><img src="http://gameprogrammingpatterns.com/images/object-pool-heap-fragment.png" alt="A series of memory operations leading to fragmentation."></p>
+<p>Here’s how a heap becomes fragmented and how it can cause an allocation to fail even where there’s theoretically enough memory available.</p>
+<p>Even if fragmentation is infrequent, it can still gradually reduce the heap to an unusable foam of open holes and filled-in crevices, ultimately hosing the game completely.</p>
+<p>Most console makers require games to pass “soak tests” where they leave the game running in demo mode for several days. If the game crashes, they don’t allow it to ship. While soak tests sometimes fail because of a rarely occurring bug, it’s usually creeping fragmentation or memory leakage that brings the game down.</p>
+<h3 id="The-best-of-both-worlds"><a href="#The-best-of-both-worlds" class="headerlink" title="The best of both worlds"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#the-best-of-both-worlds" target="_blank" rel="noopener">The best of both worlds</a></h3><p>Because of fragmentation and because allocation may be slow, games are very careful about when and how they manage memory. A simple solution is often best — grab a big chunk of memory when the game starts, and don’t free it until the game ends. But this is a pain for systems where we need to create and destroy things while the game is running.</p>
+<p>An object pool gives us the best of both worlds. To the memory manager, we’re just allocating one big hunk of memory up front and not freeing it while the game is playing. To the users of the pool, we can freely allocate and deallocate objects to our heart’s content.</p>
+<h2 id="The-Pattern"><a href="#The-Pattern" class="headerlink" title="The Pattern"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#the-pattern" target="_blank" rel="noopener">The Pattern</a></h2><p>Define a <strong>pool</strong> class that maintains a collection of <strong>reusable objects</strong>. Each object supports an <strong>“in use” query</strong> to tell if it is currently “alive”. When the pool is initialized, it creates the entire collection of objects up front (usually in a single contiguous allocation) and initializes them all to the “not in use” state.</p>
+<p>When you want a new object, ask the pool for one. It finds an available object, initializes it to “in use”, and returns it. When the object is no longer needed, it is set back to the “not in use” state. This way, objects can be freely created and destroyed without needing to allocate memory or other resources.</p>
+<h2 id="When-to-Use-It"><a href="#When-to-Use-It" class="headerlink" title="When to Use It"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#when-to-use-it" target="_blank" rel="noopener">When to Use It</a></h2><p>This pattern is used widely in games for obvious things like game entities and visual effects, but it is also used for less visible data structures such as currently playing sounds. Use Object Pool when:</p>
+<ul>
+<li>You need to frequently create and destroy objects.</li>
+<li>Objects are similar in size.</li>
+<li>Allocating objects on the heap is slow or could lead to memory fragmentation.</li>
+<li>Each object encapsulates a resource such as a database or network connection that is expensive to acquire and could be reused.</li>
+</ul>
+<h2 id="Keep-in-Mind"><a href="#Keep-in-Mind" class="headerlink" title="Keep in Mind"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#keep-in-mind" target="_blank" rel="noopener">Keep in Mind</a></h2><p>You normally rely on a garbage collector or <code>new</code> and <code>delete</code> to handle memory management for you. By using an object pool, you’re saying, “I know better how these bytes should be handled.” That means the onus is on you to deal with this pattern’s limitations.</p>
+<h3 id="The-pool-may-waste-memory-on-unneeded-objects"><a href="#The-pool-may-waste-memory-on-unneeded-objects" class="headerlink" title="The pool may waste memory on unneeded objects"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#the-pool-may-waste-memory-on-unneeded-objects" target="_blank" rel="noopener">The pool may waste memory on unneeded objects</a></h3><p>The size of an object pool needs to be tuned for the game’s needs. When tuning, it’s usually obvious when the pool is too <em>small</em> (there’s nothing like a crash to get your attention). But also take care that the pool isn’t too <em>big</em>. A smaller pool frees up memory that could be used for other fun stuff.</p>
+<h3 id="Only-a-fixed-number-of-objects-can-be-active-at-any-one-time"><a href="#Only-a-fixed-number-of-objects-can-be-active-at-any-one-time" class="headerlink" title="Only a fixed number of objects can be active at any one time"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#only-a-fixed-number-of-objects-can-be-active-at-any-one-time" target="_blank" rel="noopener">Only a fixed number of objects can be active at any one time</a></h3><p>In some ways, this is a good thing. Partitioning memory into separate pools for different types of objects ensures that, for example, a huge sequence of explosions won’t cause your particle system to eat <em>all</em> of the available memory, preventing something more critical like a new enemy from being created.</p>
+<p>Nonetheless, this also means being prepared for the possibility that your attempt to reuse an object from the pool will fail because they are all in use. There are a few common strategies to handle this:</p>
+<ul>
+<li><p><em>Prevent it outright.</em> This is the most common “fix”: tune the pool sizes so that they never overflow regardless of what the user does. For pools of important objects like enemies or gameplay items, this is often the right answer. There may be no “right” way to handle the lack of a free slot to create the big boss when the player reaches the end of the level, so the smart thing to do is make sure that never happens.</p>
+<p>The downside is that this can force you to sit on a lot of memory for object slots that are needed only for a couple of rare edge cases. Because of this, a single fixed pool size may not be the best fit for all game states. For instance, some levels may feature effects prominently while others focus on sound. In such cases, consider having pool sizes tuned differently for each scenario.</p>
+</li>
+<li><p><em>Just don’t create the object.</em> This sounds harsh, but it makes sense for cases like our particle system. If all particles are in use, the screen is probably full of flashing graphics. The user won’t notice if the next explosion isn’t quite as impressive as the ones currently going off.</p>
+</li>
+<li><p><em>Forcibly kill an existing object.</em> Consider a pool for currently playing sounds, and assume you want to start a new sound but the pool is full. You do <em>not</em> want to simply ignore the new sound — the user will notice if their magical wand swishes dramatically <em>sometimes</em> and stays stubbornly silent other times. A better solution is to find the quietest sound already playing and replace that with our new sound. The new sound will mask the audible cutoff of the previous sound.</p>
+<p>In general, if the <em>disappearance</em> of an existing object would be less noticeable than the <em>absence</em> of a new one, this may be the right choice.</p>
+</li>
+<li><p><em>Increase the size of the pool.</em> If your game lets you be a bit more flexible with memory, you may be able to increase the size of the pool at runtime or create a second overflow pool. If you do grab more memory in either of these ways, consider whether or not the pool should contract to its previous size when the additional capacity is no longer needed.</p>
+</li>
+</ul>
+<h3 id="Memory-size-for-each-object-is-fixed"><a href="#Memory-size-for-each-object-is-fixed" class="headerlink" title="Memory size for each object is fixed"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#memory-size-for-each-object-is-fixed" target="_blank" rel="noopener">Memory size for each object is fixed</a></h3><p>Most pool implementations store the objects in an array of in-place objects. If all of your objects are of the same type, this is fine. However, if you want to store objects of different types in the pool, or instances of subclasses that may add fields, you need to ensure that each slot in the pool has enough memory for the <em>largest</em> possible object. Otherwise, an unexpectedly large object will stomp over the next one and trash memory.</p>
+<p>At the same time, when your objects vary in size, you waste memory. Each slot needs to be big enough to accommodate the largest object. If objects are rarely that big, you’re throwing away memory every time you put a smaller one in that slot. It’s like going through airport security and using a huge carry-on-sized luggage tray just for your keys and wallet.</p>
+<p>When you find yourself burning a lot of memory this way, consider splitting the pool into separate pools for different sizes of object — big trays for luggage, little trays for pocket stuff.</p>
+<p>This is a common pattern for implementing speed-efficient memory managers. The manager has a number of pools of different block sizes. When you ask it to allocate a block, it finds in an open slot in the pool of the appropriate size and allocates from that pool.</p>
+<h3 id="Reused-objects-aren’t-automatically-cleared"><a href="#Reused-objects-aren’t-automatically-cleared" class="headerlink" title="Reused objects aren’t automatically cleared"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#reused-objects-aren&#39;t-automatically-cleared" target="_blank" rel="noopener">Reused objects aren’t automatically cleared</a></h3><p>Most memory managers have a debug feature that will clear freshly allocated or freed memory to some obvious magic value like <code>0xdeadbeef</code>. This helps you find painful bugs caused by uninitialized variables or using memory after it’s freed.</p>
+<p>Since our object pool isn’t going through the memory manager any more when it reuses an object, we lose that safety net. Worse, the memory used for a “new” object previously held an object of the exact same type. This makes it nearly impossible to tell if you forgot to initialize something when you created the new object: the memory where the object is stored may already contain <em>almost</em> correct data from its past life.</p>
+<p>Because of this, pay special care that the code that initializes new objects in the pool <em>fully</em> initializes the object. It may even be worth spending a bit of time adding a debug feature that clears the memory for an object slot when the object is reclaimed.</p>
+<p>I’d be honored if you clear it to <code>0x1deadb0b</code>.</p>
+<h3 id="Unused-objects-will-remain-in-memory"><a href="#Unused-objects-will-remain-in-memory" class="headerlink" title="Unused objects will remain in memory"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#unused-objects-will-remain-in-memory" target="_blank" rel="noopener">Unused objects will remain in memory</a></h3><p>Object pools are less common in systems that support garbage collection because the memory manager will usually deal with fragmentation for you. But pools are still useful there to avoid the cost of allocation and deallocation, especially on mobile devices with slower CPUs and simpler garbage collectors.</p>
+<p>If you do use an object pool in concert with a garbage collector, beware of a potential conflict. Since the pool doesn’t actually deallocate objects when they’re no longer in use, they remain in memory. If they contain references to <em>other</em>objects, it will prevent the collector from reclaiming those too. To avoid this, when a pooled object is no longer in use, clear any references it has to other objects.</p>
+<h2 id="Sample-Code"><a href="#Sample-Code" class="headerlink" title="Sample Code"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#sample-code" target="_blank" rel="noopener">Sample Code</a></h2><p>Real-world particle systems will often apply gravity, wind, friction, and other physical effects. Our much simpler sample will only move particles in a straight line for a certain number of frames and then kill the particle. Not exactly film caliber, but it should illustrate how to use an object pool.</p>
+<p>We’ll start with the simplest possible implementation. First up is the little particle class:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">class Particle</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  Particle()</span><br><span class="line">  : framesLeft_(0)</span><br><span class="line">  &#123;&#125;</span><br><span class="line"></span><br><span class="line">  void init(double x, double y,</span><br><span class="line">            double xVel, double yVel, int lifetime)</span><br><span class="line">  &#123;</span><br><span class="line">    x_ = x; y_ = y;</span><br><span class="line">    xVel_ = xVel; yVel_ = yVel;</span><br><span class="line">    framesLeft_ = lifetime;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  void animate()</span><br><span class="line">  &#123;</span><br><span class="line">    if (!inUse()) return;</span><br><span class="line"></span><br><span class="line">    framesLeft_--;</span><br><span class="line">    x_ += xVel_;</span><br><span class="line">    y_ += yVel_;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  bool inUse() const &#123; return framesLeft_ &gt; 0; &#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">  int framesLeft_;</span><br><span class="line">  double x_, y_;</span><br><span class="line">  double xVel_, yVel_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>The default constructor initializes the particle to “not in use”. A later call to <code>init()</code> initializes the particle to a live state. Particles are animated over time using the unsurprisingly named <code>animate()</code> function, which should be called once per frame.</p>
+<p>The pool needs to know which particles are available for reuse. It gets this from the particle’s <code>inUse()</code> function. This function takes advantage of the fact that particles have a limited lifetime and uses the <code>_framesLeft</code> variable to discover which particles are in use without having to store a separate flag.</p>
+<p>The pool class is also simple:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class ParticlePool</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  void create(double x, double y,</span><br><span class="line">              double xVel, double yVel, int lifetime);</span><br><span class="line"></span><br><span class="line">  void animate()</span><br><span class="line">  &#123;</span><br><span class="line">    for (int i = 0; i &lt; POOL_SIZE; i++)</span><br><span class="line">    &#123;</span><br><span class="line">      particles_[i].animate();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">  static const int POOL_SIZE = 100;</span><br><span class="line">  Particle particles_[POOL_SIZE];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>The <code>create()</code> function lets external code create new particles. The game calls<code>animate()</code> once per frame, which in turn animates each particle in the pool.</p>
+<p>This <code>animate()</code> method is an example of the <a href="http://gameprogrammingpatterns.com/update-method.html" target="_blank" rel="noopener">Update Method</a> pattern.</p>
+<p>The particles themselves are simply stored in a fixed-size array in the class. In this sample implementation, the pool size is hardcoded in the class declaration, but this could be defined externally by using a dynamic array of a given size or by using a value template parameter.</p>
+<p>Creating a new particle is straightforward:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void ParticlePool::create(double x, double y,</span><br><span class="line">                          double xVel, double yVel,</span><br><span class="line">                          int lifetime)</span><br><span class="line">&#123;</span><br><span class="line">  // Find an available particle.</span><br><span class="line">  for (int i = 0; i &lt; POOL_SIZE; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    if (!particles_[i].inUse())</span><br><span class="line">    &#123;</span><br><span class="line">      particles_[i].init(x, y, xVel, yVel, lifetime);</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We iterate through the pool looking for the first available particle. When we find it, we initialize it and we’re done. Note that in this implementation, if there aren’t any available particles, we simply don’t create a new one.</p>
+<p>That’s all there is to a simple particle system, aside from rendering the particles, of course. We can now create a pool and create some particles using it. The particles will automatically deactivate themselves when their lifetime has expired.</p>
+<p>This is good enough to ship a game, but keen eyes may have noticed that creating a new particle requires iterating through (potentially) the entire collection until we find an open slot. If the pool is very large and mostly full, that can get slow. Let’s see how we can improve that.</p>
+<p>Creating a particle has <em>O(n)</em> complexity, for those of us who remember our algorithms class.</p>
+<h3 id="A-free-list"><a href="#A-free-list" class="headerlink" title="A free list"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#a-free-list" target="_blank" rel="noopener">A free list</a></h3><p>If we don’t want to waste time <em>finding</em> free particles, the obvious answer is to not lose track of them. We could store a separate list of pointers to each unused particle. Then, when we need to create a particle, we remove the first pointer from the list and reuse the particle it points to.</p>
+<p>Unfortunately, this would require us to maintain an entire separate array with as many pointers as there are objects in the pool. After all, when we first create the pool, <em>all</em> particles are unused, so the list would initially have a pointer to every object in the pool.</p>
+<p>It would be nice to fix our performance problems <em>without</em> sacrificing any memory. Conveniently, there is some memory already lying around that we can borrow — the data for the unused particles themselves.</p>
+<p>When a particle isn’t in use, most of its state is irrelevant. Its position and velocity aren’t being used. The only state it needs is the stuff required to tell if it’s dead. In our example, that’s the <code>_framesLeft</code> member. All those other bits can be reused. Here’s a revised particle:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Particle</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  // ...</span><br><span class="line"></span><br><span class="line">  Particle* getNext() const &#123; return state_.next; &#125;</span><br><span class="line">  void setNext(Particle* next) &#123; state_.next = next; &#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">  int framesLeft_;</span><br><span class="line"></span><br><span class="line">  union</span><br><span class="line">  &#123;</span><br><span class="line">    // State when it&apos;s in use.</span><br><span class="line">    struct</span><br><span class="line">    &#123;</span><br><span class="line">      double x, y;</span><br><span class="line">      double xVel, yVel;</span><br><span class="line">    &#125; live;</span><br><span class="line"></span><br><span class="line">    // State when it&apos;s available.</span><br><span class="line">    Particle* next;</span><br><span class="line">  &#125; state_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>We’ve moved all of the member variables except for <code>framesLeft_</code> into a <code>live</code>struct inside a <code>state_</code> union. This struct holds the particle’s state when it’s being animated. When the particle is unused, the other case of the union, the <code>next</code> member, is used. It holds a pointer to the next available particle after this one.</p>
+<p>Unions don’t seem to be used that often these days, so the syntax may be unfamiliar to you. If you’re on a game team, you’ve probably got a “memory guru”, that beleaguered compatriot whose job it is to come up with a solution when the game has inevitably blown its memory budget. Ask them about unions. They’ll know all about them and other fun bit-packing tricks.</p>
+<p>We can use these pointers to build a linked list that chains together every unused particle in the pool. We have the list of available particles we need, but we didn’t need to use any additional memory. Instead, we cannibalize the memory of the dead particles themselves to store the list.</p>
+<p>This clever technique is called a <a href="http://en.wikipedia.org/wiki/Free_list" target="_blank" rel="noopener"><em>free list</em></a>. For it to work, we need to make sure the pointers are initialized correctly and are maintained when particles are created and destroyed. And, of course, we need to keep track of the list’s head:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class ParticlePool</span><br><span class="line">&#123;</span><br><span class="line">  // ...</span><br><span class="line">private:</span><br><span class="line">  Particle* firstAvailable_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>When a pool is first created, <em>all</em> of the particles are available, so our free list should thread through the entire pool. The pool constructor sets that up:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ParticlePool::ParticlePool()</span><br><span class="line">&#123;</span><br><span class="line">  // The first one is available.</span><br><span class="line">  firstAvailable_ = &amp;particles_[0];</span><br><span class="line"></span><br><span class="line">  // Each particle points to the next.</span><br><span class="line">  for (int i = 0; i &lt; POOL_SIZE - 1; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    particles_[i].setNext(&amp;particles_[i + 1]);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // The last one terminates the list.</span><br><span class="line">  particles_[POOL_SIZE - 1].setNext(NULL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now to create a new particle, we jump directly to the first available one:</p>
+<p><em>O(1)</em> complexity, baby! Now we’re cooking!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void ParticlePool::create(double x, double y,</span><br><span class="line">                          double xVel, double yVel,</span><br><span class="line">                          int lifetime)</span><br><span class="line">&#123;</span><br><span class="line">  // Make sure the pool isn&apos;t full.</span><br><span class="line">  assert(firstAvailable_ != NULL);</span><br><span class="line"></span><br><span class="line">  // Remove it from the available list.</span><br><span class="line">  Particle* newParticle = firstAvailable_;</span><br><span class="line">  firstAvailable_ = newParticle-&gt;getNext();</span><br><span class="line"></span><br><span class="line">  newParticle-&gt;init(x, y, xVel, yVel, lifetime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We need to know when a particle dies so we can add it back to the free list, so we’ll change <code>animate()</code> to return <code>true</code> if the previously live particle gave up the ghost in that frame:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bool Particle::animate()</span><br><span class="line">&#123;</span><br><span class="line">  if (!inUse()) return false;</span><br><span class="line"></span><br><span class="line">  framesLeft_--;</span><br><span class="line">  x_ += xVel_;</span><br><span class="line">  y_ += yVel_;</span><br><span class="line"></span><br><span class="line">  return framesLeft_ == 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>When that happens, we simply thread it back onto the list:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void ParticlePool::animate()</span><br><span class="line">&#123;</span><br><span class="line">  for (int i = 0; i &lt; POOL_SIZE; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    if (particles_[i].animate())</span><br><span class="line">    &#123;</span><br><span class="line">      // Add this particle to the front of the list.</span><br><span class="line">      particles_[i].setNext(firstAvailable_);</span><br><span class="line">      firstAvailable_ = &amp;particles_[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>There you go, a nice little object pool with constant-time creation and deletion.</p>
+<h2 id="Design-Decisions"><a href="#Design-Decisions" class="headerlink" title="Design Decisions"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#design-decisions" target="_blank" rel="noopener">Design Decisions</a></h2><p>As you’ve seen, the simplest object pool implementation is almost trivial: create an array of objects and reinitialize them as needed. Production code is rarely that minimal. There are several ways to expand on that to make the pool more generic, safer to use, or easier to maintain. As you implement pools in your games, you’ll need to answer these questions:</p>
+<h3 id="Are-objects-coupled-to-the-pool"><a href="#Are-objects-coupled-to-the-pool" class="headerlink" title="Are objects coupled to the pool?"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#are-objects-coupled-to-the-pool" target="_blank" rel="noopener">Are objects coupled to the pool?</a></h3><p>The first question you’ll run into when writing an object pool is whether the objects themselves know they are in a pool. Most of the time they will, but you won’t have that luxury when writing a generic pool class that can hold arbitrary objects.</p>
+<ul>
+<li><p><strong>If objects are coupled to the pool:</strong></p>
+<ul>
+<li><p><em>The implementation is simpler.</em> You can simply put an “in use” flag or function in your pooled object and be done with it.</p>
+</li>
+<li><p><em>You can ensure that the objects can only be created by the pool.</em> In C++, a simple way to do this is to make the pool class a friend of the object class and then make the object’s constructor private.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Particle</span><br><span class="line">&#123;</span><br><span class="line">  friend class ParticlePool;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">  Particle()</span><br><span class="line">  : inUse_(false)</span><br><span class="line">  &#123;&#125;</span><br><span class="line"></span><br><span class="line">  bool inUse_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class ParticlePool</span><br><span class="line">&#123;</span><br><span class="line">  Particle pool_[100];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>This relationship documents the intended way to use the class and ensures your users don’t create objects that aren’t tracked by the pool.</p>
+</li>
+<li><p><em>You may be able to avoid storing an explicit “in use” flag.</em> Many objects already retain some state that could be used to tell whether it is alive or not. For example, a particle may be available for reuse if its current position is offscreen. If the object class knows it may be used in a pool, it can provide an <code>inUse()</code> method to query that state. This saves the pool from having to burn some extra memory storing a bunch of “in use” flags.</p>
+</li>
+</ul>
+</li>
+<li><p><strong>If objects are not coupled to the pool:</strong></p>
+<ul>
+<li><p><em>Objects of any type can be pooled.</em> This is the big advantage. By decoupling objects from the pool, you may be able to implement a generic reusable pool class.</p>
+</li>
+<li><p><em>The “in use” state must be tracked outside the objects.</em> The simplest way to do this is by creating a separate bit field:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">template &lt;class TObject&gt;</span><br><span class="line">class GenericPool</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">  static const int POOL_SIZE = 100;</span><br><span class="line"></span><br><span class="line">  TObject pool_[POOL_SIZE];</span><br><span class="line">  bool    inUse_[POOL_SIZE];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="What-is-responsible-for-initializing-the-reused-objects"><a href="#What-is-responsible-for-initializing-the-reused-objects" class="headerlink" title="What is responsible for initializing the reused objects?"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#what-is-responsible-for-initializing-the-reused-objects" target="_blank" rel="noopener">What is responsible for initializing the reused objects?</a></h3><p>In order to reuse an existing object, it must be reinitialized with new state. A key question here is whether to reinitialize the object inside the pool class or outside.</p>
+<ul>
+<li><p><strong>If the pool reinitializes internally:</strong></p>
+<ul>
+<li><p><em>The pool can completely encapsulate its objects</em>. Depending on the other capabilities your objects need, you may be able to keep them completely internal to the pool. This makes sure that other code doesn’t maintain references to objects that could be unexpectedly reused.</p>
+</li>
+<li><p><em>The pool is tied to how objects are initialized</em>. A pooled object may offer multiple functions that initialize it. If the pool manages initialization, its interface needs to support all of those and forward them to the object.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Particle</span><br><span class="line">&#123;</span><br><span class="line">  // Multiple ways to initialize.</span><br><span class="line">  void init(double x, double y);</span><br><span class="line">  void init(double x, double y, double angle);</span><br><span class="line">  void init(double x, double y, double xVel, double yVel);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class ParticlePool</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  void create(double x, double y)</span><br><span class="line">  &#123;</span><br><span class="line">    // Forward to Particle...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  void create(double x, double y, double angle)</span><br><span class="line">  &#123;</span><br><span class="line">    // Forward to Particle...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  void create(double x, double y, double xVel, double yVel)</span><br><span class="line">  &#123;</span><br><span class="line">    // Forward to Particle...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>If outside code initializes the object:</strong></p>
+<ul>
+<li><p><em>The pool’s interface can be simpler.</em> Instead of offering multiple functions to cover each way an object can be initialized, the pool can simply return a reference to the new object:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Particle</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  // Multiple ways to initialize.</span><br><span class="line">  void init(double x, double y);</span><br><span class="line">  void init(double x, double y, double angle);</span><br><span class="line">  void init(double x, double y, double xVel, double yVel);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class ParticlePool</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">  Particle* create()</span><br><span class="line">  &#123;</span><br><span class="line">    // Return reference to available particle...</span><br><span class="line">  &#125;</span><br><span class="line">private:</span><br><span class="line">  Particle pool_[100];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>The caller can then initialize the object by calling any method the object exposes:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ParticlePool pool;</span><br><span class="line"></span><br><span class="line">pool.create()-&gt;init(1, 2);</span><br><span class="line">pool.create()-&gt;init(1, 2, 0.3);</span><br><span class="line">pool.create()-&gt;init(1, 2, 3.3, 4.4);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><em>Outside code may need to handle the failure to create a new object.</em> The previous example assumes that <code>create()</code> will always successfully return a pointer to an object. If the pool is full, though, it may return <code>NULL</code>instead. To be safe, you’ll need to check for that before you try to initialize the object:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Particle* particle = pool.create();</span><br><span class="line">if (particle != NULL) particle-&gt;init(1, 2);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="See-Also"><a href="#See-Also" class="headerlink" title="See Also"></a><a href="http://gameprogrammingpatterns.com/object-pool.html#see-also" target="_blank" rel="noopener">See Also</a></h2><ul>
+<li><p>This looks a lot like the <a href="http://gameprogrammingpatterns.com/flyweight.html" target="_blank" rel="noopener">Flyweight</a> pattern. Both maintain a collection of reusable objects. The difference is what “reuse” means. Flyweight objects are reused by sharing the same instance between multiple owners <em>simultaneously</em>. The Flyweight pattern avoids <em>duplicate</em> memory usage by using the same object in multiple contexts.</p>
+<p>The objects in a pool get reused too, but only over time. “Reuse” in the context of an object pool means reclaiming the memory for an object <em>after</em> the original owner is done with it. With an object pool, there isn’t any expectation that an object will be shared within its lifetime.</p>
+</li>
+<li><p>Packing a bunch of objects of the same type together in memory helps keep your CPU cache full as the game iterates over those objects. The <a href="http://gameprogrammingpatterns.com/data-locality.html" target="_blank" rel="noopener">Data Locality</a> pattern is all about that.</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础知识/" rel="tag"># 基础知识</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/11/计算机网络： 1.七层协议/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/37128815.jpeg"
+                alt="Bob Wen" />
+            
+              <p class="site-author-name" itemprop="name">Bob Wen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobwen13579" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.weibo.com/u/2314489310/home?wvr=5&lf=reg" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS-UITableViewCell对象是怎么重用的"><span class="nav-number">1.</span> <span class="nav-text">iOS- UITableViewCell对象是怎么重用的 ?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重用原理："><span class="nav-number">1.0.1.</span> <span class="nav-text">重用原理：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#还有一个非常重要的问题："><span class="nav-number">1.0.1.1.</span> <span class="nav-text">还有一个非常重要的问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案："><span class="nav-number">1.0.1.2.</span> <span class="nav-text">解决方案：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#论文参考："><span class="nav-number">1.0.1.3.</span> <span class="nav-text">论文参考：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Object-Pool"><span class="nav-number">2.</span> <span class="nav-text">Object Pool</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Intent"><span class="nav-number">2.1.</span> <span class="nav-text">Intent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">2.2.</span> <span class="nav-text">Motivation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-curse-of-fragmentation"><span class="nav-number">2.2.1.</span> <span class="nav-text">The curse of fragmentation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-best-of-both-worlds"><span class="nav-number">2.2.2.</span> <span class="nav-text">The best of both worlds</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Pattern"><span class="nav-number">2.3.</span> <span class="nav-text">The Pattern</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#When-to-Use-It"><span class="nav-number">2.4.</span> <span class="nav-text">When to Use It</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keep-in-Mind"><span class="nav-number">2.5.</span> <span class="nav-text">Keep in Mind</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-pool-may-waste-memory-on-unneeded-objects"><span class="nav-number">2.5.1.</span> <span class="nav-text">The pool may waste memory on unneeded objects</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Only-a-fixed-number-of-objects-can-be-active-at-any-one-time"><span class="nav-number">2.5.2.</span> <span class="nav-text">Only a fixed number of objects can be active at any one time</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-size-for-each-object-is-fixed"><span class="nav-number">2.5.3.</span> <span class="nav-text">Memory size for each object is fixed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reused-objects-aren’t-automatically-cleared"><span class="nav-number">2.5.4.</span> <span class="nav-text">Reused objects aren’t automatically cleared</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unused-objects-will-remain-in-memory"><span class="nav-number">2.5.5.</span> <span class="nav-text">Unused objects will remain in memory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Code"><span class="nav-number">2.6.</span> <span class="nav-text">Sample Code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-free-list"><span class="nav-number">2.6.1.</span> <span class="nav-text">A free list</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-Decisions"><span class="nav-number">2.7.</span> <span class="nav-text">Design Decisions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Are-objects-coupled-to-the-pool"><span class="nav-number">2.7.1.</span> <span class="nav-text">Are objects coupled to the pool?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-responsible-for-initializing-the-reused-objects"><span class="nav-number">2.7.2.</span> <span class="nav-text">What is responsible for initializing the reused objects?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#See-Also"><span class="nav-number">2.8.</span> <span class="nav-text">See Also</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bob Wen</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="单元测试,iOS," />
+  <meta name="keywords" content="界面编程,页面跳转," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="XCTest 单元测试 常用断言 如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。  最基本的断言  表示如果expression满足，则测试通过，否则对应format的错误。  XCTAssert(expression, format…) 直接Fail的断言   XCTFail(format…)  其他一些常用的断言：  XCTAssertTrue(expression, for">
-<meta name="keywords" content="单元测试,iOS">
+<meta name="description" content="swift页面跳转今天搞通了swift页面跳转。如果对比前端或者说web应用，其实就是“路由”，像react应用，可以通过react-router来管理路由，vue可以通过vue-router来管理路由类似，swift中可以用UINavigationController来管理“路由”，这里应该叫“导航”吧。iOS中有两种不同形式的跳转，一种是有逻辑层级关系的跳转，一种是临时页面的跳转。 具有逻辑层">
+<meta name="keywords" content="界面编程,页面跳转">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OC测试">
-<meta property="og:url" content="http://yoursite.com/2018/08/01/XCTest/index.html">
+<meta property="og:title" content="swift页面跳转">
+<meta property="og:url" content="http://yoursite.com/2018/09/04/swift页面跳转/index.html">
 <meta property="og:site_name" content="我怀念的">
-<meta property="og:description" content="XCTest 单元测试 常用断言 如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。  最基本的断言  表示如果expression满足，则测试通过，否则对应format的错误。  XCTAssert(expression, format…) 直接Fail的断言   XCTFail(format…)  其他一些常用的断言：  XCTAssertTrue(expression, for">
+<meta property="og:description" content="swift页面跳转今天搞通了swift页面跳转。如果对比前端或者说web应用，其实就是“路由”，像react应用，可以通过react-router来管理路由，vue可以通过vue-router来管理路由类似，swift中可以用UINavigationController来管理“路由”，这里应该叫“导航”吧。iOS中有两种不同形式的跳转，一种是有逻辑层级关系的跳转，一种是临时页面的跳转。 具有逻辑层">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-29T03:47:56.822Z">
+<meta property="og:updated_time" content="2018-09-05T07:53:10.295Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OC测试">
-<meta name="twitter:description" content="XCTest 单元测试 常用断言 如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。  最基本的断言  表示如果expression满足，则测试通过，否则对应format的错误。  XCTAssert(expression, format…) 直接Fail的断言   XCTFail(format…)  其他一些常用的断言：  XCTAssertTrue(expression, for">
+<meta name="twitter:title" content="swift页面跳转">
+<meta name="twitter:description" content="swift页面跳转今天搞通了swift页面跳转。如果对比前端或者说web应用，其实就是“路由”，像react应用，可以通过react-router来管理路由，vue可以通过vue-router来管理路由类似，swift中可以用UINavigationController来管理“路由”，这里应该叫“导航”吧。iOS中有两种不同形式的跳转，一种是有逻辑层级关系的跳转，一种是临时页面的跳转。 具有逻辑层">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/01/XCTest/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/04/swift页面跳转/"/>
 
 
 
 
 
-  <title>OC测试 | 我怀念的</title>
+  <title>swift页面跳转 | 我怀念的</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/XCTest/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/swift页面跳转/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bob Wen">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OC测试</h1>
+          <h1 class="post-title" itemprop="name headline">swift页面跳转</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T20:40:25+08:00">
-                2018-08-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T15:40:11+08:00">
+                2018-09-04
               </time>
             
 
@@ -352,29 +352,16 @@
       
 
       
-        <h1 id="XCTest"><a href="#XCTest" class="headerlink" title="XCTest"></a>XCTest</h1><hr>
-<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><hr>
-<p><a href="">常用断言</a></p>
-<p>如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。 </p>
-<p>最基本的断言 </p>
-<p>表示如果expression满足，则测试通过，否则对应format的错误。</p>
-<blockquote>
-<p>XCTAssert(expression, format…)</p>
-<p>直接Fail的断言</p>
-</blockquote>
-<blockquote>
-<p>XCTFail(format…)</p>
-</blockquote>
-<p>其他一些常用的断言：</p>
-<blockquote>
-<p>XCTAssertTrue(expression, format…)</p>
-<p>XCTAssertFalse(expression, format…)</p>
-<p>XCTAssertEqual(expression1, expression2, format…)</p>
-<p>XCTAssertNotEqual(expression1, expression2, format…)</p>
-<p>XCTAssertEqualWithAccuracy(expression1, expression2, accuracy, format…)</p>
-<p>XCTAssertNotEqualWithAccuracy(expression1, expression2, accuracy, format…)</p>
-<p>XCTAssertNil(expression, format…) XCTAssertNotNil(expression, format…)</p>
-</blockquote>
+        <h1 id="swift页面跳转"><a href="#swift页面跳转" class="headerlink" title="swift页面跳转"></a>swift页面跳转</h1><p>今天搞通了swift页面跳转。如果对比前端或者说web应用，其实就是“路由”，像react应用，可以通过react-router来管理路由，vue可以通过vue-router来管理路由类似，swift中可以用<code>UINavigationController</code>来管理“路由”，这里应该叫“导航”吧。iOS中有两种不同形式的跳转，一种是有逻辑层级关系的跳转，一种是临时页面的跳转。</p>
+<h2 id="具有逻辑层级关系的页面跳转"><a href="#具有逻辑层级关系的页面跳转" class="headerlink" title="具有逻辑层级关系的页面跳转"></a>具有逻辑层级关系的页面跳转</h2><p>比如网上购物，下单之后要跳到订单页面，再跳到支付页面等等，这种跳转是有一定逻辑，或者说先后顺序的。这种跳转需要用<code>NavigationViewController</code>进行跳转。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">    override func viewDidLoad() &#123;</span><br><span class="line">        super.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        //创建一个按钮，用来跳转页面</span><br><span class="line">        let btn = UIButton(frame: CGRect(x: 100, y: 80, width: 100, height: 45 ))</span><br><span class="line">        btn.setTitle(&quot;Next&quot;, for: .normal)</span><br><span class="line">        btn.backgroundColor = .blue</span><br><span class="line">        btn.addTarget(self, action: #selector(gotoNext), for: .touchUpInside)</span><br><span class="line">     </span><br><span class="line">        self.view.addSubview(btn)</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    </span><br><span class="line">    func gotoNext() &#123;</span><br><span class="line">        let anotherView = HelloController() //要跳转到的页面</span><br><span class="line">        self.navigationController?.pushViewController(anotherView, animated: true)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码，使用<code>navigationController</code>下的<code>pushViewController</code>方法进行跳转。同时新建一个Cocoa Touch Class文件，然后选择subclass为<code>UIViewController</code>,文件名是上面代码用到的<code>HelloController</code>，这就是要跳转到的第二个页面。我们在这个页面放一个返回的按钮，跳回到原来的页面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class HelloController: UIViewController &#123;</span><br><span class="line"></span><br><span class="line">    override func viewDidLoad() &#123;</span><br><span class="line">        super.viewDidLoad()</span><br><span class="line">        let button = UIButton()</span><br><span class="line">        button.frame = CGRect(x: 50, y: 80, width: 100, height: 45)</span><br><span class="line">        button.setTitle(&quot;Back&quot;, for: .normal)</span><br><span class="line">        button.backgroundColor = UIColor.cyan</span><br><span class="line">        button.addTarget(self, action: #selector(back), for: .touchUpInside)</span><br><span class="line">        </span><br><span class="line">        view.addSubview(button)</span><br><span class="line">        view.backgroundColor = UIColor.white //设置一下北京色，不然是黑的😂</span><br><span class="line"></span><br><span class="line">        print(&quot;second page&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func back() &#123;</span><br><span class="line">    	// 返回上一页</span><br><span class="line">        self.navigationController?.popViewController(animated: true)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击Back按钮，返回上一页。使用<code>navigationController</code>下的<code>popViewController</code>方法实现返回。但是如果这时编译页面，在模拟器中点击Next按钮，发现并没有任何事情发生😅这块找了半天才找到解决办法，最后发现，是没有实例化<code>UINavigationController</code>，其实看到<code>navigationController</code>是一个可选类型就可以猜到一二。接下来，该在什么地方实例化这个<code>UINavigationController</code>呢？如果你直接在页面实例化，发现一样不管用。类比一下react里的路由(react-router 4.0之前的版本)，就会发现，导航其实是一个全局的东西，来管理所有的界面堆栈，而不是存在于某一个页面内。如果放入某一个页面内，每次加载都是实例化的一个新<code>UINavigationController</code>，它在其他页面是没法被拿到的。如这个例子中，如果在第一页实例化一个导航控制器，在第二页中是拿不到的。所以，要解决这个问题，就要实例化一个全局的<code>UINavigationController</code>。我们可以在<code>AppDelegate.swift</code>中实例化这个全局导航器。在<code>application</code>方法中，添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let mainPage = ViewController()</span><br><span class="line">let navRoot = UINavigationController(rootViewController: mainPage)</span><br><span class="line"></span><br><span class="line">window = UIWindow(frame: UIScreen.main.bounds)</span><br><span class="line">window?.backgroundColor = UIColor.white</span><br><span class="line">window?.rootViewController = navRoot</span><br></pre></td></tr></table></figure>
+<p>即通过给window的rootViewController赋值一个<code>UINavigationController</code>实例，就可以在所有页面使用<code>navigationController</code>了。这里其实是重写了应用启动后的默认行为，所以需要在实例化<code>UINavigationController</code>时指定一下根试图。同时，把window大小设置成了满屏。然后给个背景色，否则是黑的😓。这样就可以了，其他页面直接使用<code>pushViewController</code>和<code>popViewController</code>就可以了。</p>
+<h2 id="临时页面的跳转"><a href="#临时页面的跳转" class="headerlink" title="临时页面的跳转"></a>临时页面的跳转</h2><p>临时页面跳转，不知道有没有一个专业的名称。我觉得可以看作是一个弹出页，比如点击一个表单控件，可以弹出一个相应的编辑页。这个是属于该页面的行为，所以不需要全局使用，视图自带。代码还是用上面的，不过跳转方法改一下就可以了。跳转到下一页，可以用<code>self.present(anotherView, animated: true, completion: nil)</code>,这样页面会从底部弹出。收回页面，调用<code>self.dismiss(animated: true, completion: nil)</code>。这里灰常简单，就认识俩方法而已。</p>
+<p>over！</p>
 
       
     </div>
@@ -392,9 +379,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/单元测试/" rel="tag"># 单元测试</a>
+            <a href="/tags/界面编程/" rel="tag"># 界面编程</a>
           
-            <a href="/tags/iOS/" rel="tag"># iOS</a>
+            <a href="/tags/页面跳转/" rel="tag"># 页面跳转</a>
           
         </div>
       
@@ -407,8 +394,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/01/frist-try/" rel="next" title="OC 反射机制">
-                <i class="fa fa-chevron-left"></i> OC 反射机制
+              <a href="/2018/09/04/COOKIE和SESSION有什么区别？/" rel="next" title="COOKIE和SESSION有什么区别？">
+                <i class="fa fa-chevron-left"></i> COOKIE和SESSION有什么区别？
               </a>
             
           </div>
@@ -417,8 +404,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/29/测试/" rel="prev" title="Test Double">
-                Test Double <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/08/iOS Ui爬坑记/" rel="prev" title="swift布局">
+                swift布局 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -571,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XCTest"><span class="nav-number">1.</span> <span class="nav-text">XCTest</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试"><span class="nav-number">1.1.</span> <span class="nav-text">单元测试</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#swift页面跳转"><span class="nav-number">1.</span> <span class="nav-text">swift页面跳转</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#具有逻辑层级关系的页面跳转"><span class="nav-number">1.1.</span> <span class="nav-text">具有逻辑层级关系的页面跳转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临时页面的跳转"><span class="nav-number">1.2.</span> <span class="nav-text">临时页面的跳转</span></a></li></ol></li></ol></div>
             
 
           </div>

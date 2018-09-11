@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础知识,swfit," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Array全面解析//科普： $0,$1 闭包中的第一第二个变量 两个常用的Array属性定义好数组之后，我们介绍两个Array最常用的属性。第一个是count，类型是Int。我们之前已经用过，用于获取数组中元素的个数： 12array1.count    // 0fiveInts.count  // 5 第二个是isEmtpy，类型是Bool。表示数组是否为空： 1234if array2.is">
+<meta name="keywords" content="基础知识,swfit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Array全面解析">
+<meta property="og:url" content="http://yoursite.com/2018/09/08/Array全面解析/index.html">
+<meta property="og:site_name" content="我怀念的">
+<meta property="og:description" content="Array全面解析//科普： $0,$1 闭包中的第一第二个变量 两个常用的Array属性定义好数组之后，我们介绍两个Array最常用的属性。第一个是count，类型是Int。我们之前已经用过，用于获取数组中元素的个数： 12array1.count    // 0fiveInts.count  // 5 第二个是isEmtpy，类型是Bool。表示数组是否为空： 1234if array2.is">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://o8lw4gkx9.qnssl.com/array-vs-nsarray-1@2x.png">
+<meta property="og:image" content="https://o8lw4gkx9.qnssl.com/animal-array-1@2x.png">
+<meta property="og:image" content="https://o8lw4gkx9.qnssl.com/filter-reduce-flatmap-1@2x.png">
+<meta property="og:image" content="https://o8lw4gkx9.qnssl.com/filter-reduce-flatmap-2@2x.png">
+<meta property="og:image" content="https://o8lw4gkx9.qnssl.com/custom-hashable-1@2x.png">
+<meta property="og:updated_time" content="2018-09-08T10:19:37.190Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Array全面解析">
+<meta name="twitter:description" content="Array全面解析//科普： $0,$1 闭包中的第一第二个变量 两个常用的Array属性定义好数组之后，我们介绍两个Array最常用的属性。第一个是count，类型是Int。我们之前已经用过，用于获取数组中元素的个数： 12array1.count    // 0fiveInts.count  // 5 第二个是isEmtpy，类型是Bool。表示数组是否为空： 1234if array2.is">
+<meta name="twitter:image" content="https://o8lw4gkx9.qnssl.com/array-vs-nsarray-1@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/08/Array全面解析/"/>
+
+
+
+
+
+  <title>Array全面解析 | 我怀念的</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我怀念的</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/Array全面解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Bob Wen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/37128815.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我怀念的">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Array全面解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T15:40:11+08:00">
+                2018-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Array全面解析"><a href="#Array全面解析" class="headerlink" title="Array全面解析"></a>Array全面解析</h1><p>//科普：</p>
+<p>$0,$1 闭包中的第一第二个变量</p>
+<h2 id="两个常用的Array属性"><a href="#两个常用的Array属性" class="headerlink" title="两个常用的Array属性"></a>两个常用的Array属性</h2><p>定义好数组之后，我们介绍两个<code>Array</code>最常用的属性。第一个是<code>count</code>，类型是<code>Int</code>。我们之前已经用过，用于获取数组中元素的个数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array1.count    // 0</span><br><span class="line">fiveInts.count  // 5</span><br></pre></td></tr></table></figure>
+<p>第二个是<code>isEmtpy</code>，类型是<code>Bool</code>。表示数组是否为空：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if array2.isEmpty &#123;</span><br><span class="line">    // array2 is empty</span><br><span class="line">    print(&quot;array2 is empty&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="访问Array中的元素"><a href="#访问Array中的元素" class="headerlink" title="访问Array中的元素"></a>访问Array中的元素</h2><p>接下来，我们看访问<code>Array</code>元素的方法，它们之中有我们在其他语言中熟悉的，也有Swift独特的方式。首先，就是几乎所有语言都有的惯用法，使用索引。但是，它却也是在Swift，最不被推荐的使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiveInts[2] // 3</span><br><span class="line">fiveInts[5] // This will crash</span><br></pre></td></tr></table></figure>
+<p>就像，上面例子中这样。当使用索引访问数组元素时，<strong>你必须自行确保索引的安全性</strong>。如果索引超过了数组的范围，程序就会直接崩溃。其实，在Swift里，我们几乎不需要直接使用索引来访问数组元素。稍后，我们会专门提到<code>Array</code>的惯用法。因此，Swift开发者也没有对索引访问添加任何安全保护。言外之意就是，非要用，你自己对结果全权负责喽。</p>
+<p>其次，是使用range operator访问数组的一个范围：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fiveInts[0...2] // [1, 2, 3]</span><br><span class="line">fiveInts[0..&lt;2] // [1, 2]</span><br></pre></td></tr></table></figure>
+<p>要说明的是，使用range operator得到的，并不是一个<code>Array</code>，而是一个<code>ArraySlice</code>。什么是<code>ArraySlice</code>呢？简单来说，就是<code>Array</code>某一段内容的view，它不真正保存数组的内容，只保存这个view引用的数组的范围：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// +---------+---+</span><br><span class="line">// | length  | 5 |</span><br><span class="line">// +---------+---+</span><br><span class="line">// | storage ptr |</span><br><span class="line">// +---------+---+</span><br><span class="line">//           |</span><br><span class="line">//           v</span><br><span class="line">//           +---+---+---+---+---+---------------------+</span><br><span class="line">//           | 1 | 2 | 3 | 4 | 5 |  reserved capacity  |</span><br><span class="line">//           +---+---+---+---+---+---------------------+</span><br><span class="line">//           ^</span><br><span class="line">//           |</span><br><span class="line">// +---------+---+</span><br><span class="line">// | storage ptr |</span><br><span class="line">// +---------+---+</span><br><span class="line">// | beg idx | 0 |</span><br><span class="line">// +---------+---+</span><br><span class="line">// | end idx | 3 |  ArraySlice for [0...2]</span><br><span class="line">// +---------+---+</span><br></pre></td></tr></table></figure>
+<p>从上面这个注释，就很容易理解view的概念了，它只记录了要表达内容的区间。但是我们也可以直接通过这个view创建新的<code>Array</code>对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Array(fiveInts[0...2]) // [1, 2, 3]</span><br></pre></td></tr></table></figure>
+<p>这样，就得到了一个值是<code>[1, 2, 3]</code>的<code>Array</code>对象。</p>
+<h2 id="添加和删除元素"><a href="#添加和删除元素" class="headerlink" title="添加和删除元素"></a>添加和删除元素</h2><p>最后，来看如何编辑<code>Array</code>中的元素。要在数组的末尾添加元素，我们可以这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array1.append(1)     // [1]</span><br><span class="line">array1 += [2, 3, 4]  // [1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+<p>要在<code>Array</code>中间位置添加元素，可以使用<code>insert</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// [1, 2, 3, 4, 5]</span><br><span class="line">array1.insert(5, at: array1.endIndex)</span><br></pre></td></tr></table></figure>
+<p>它的第一个参数表示要插入的值，第二个参数表示要插入的位置，这个位置必须是一个合法的范围，即<code>0...array1.endIndex</code>，如果超出这个范围，会直接引发运行时错误。</p>
+<p>要删除<code>Array</code>中的元素，可以使用<code>remove(at:)</code>方法，它只接受一个参数，表示要删除元素的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array1.remove(at: 4) // [1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+<p>同样，你必须自行保证使用的<code>at</code>参数不超过数组的合法范围，否则会引发运行时错误。当然，如果你仅仅想删除数组中的最后一个元素，还可以使用<code>removeLast()</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array1.removeLast() // [1, 2, 3]</span><br><span class="line">array2.removeLast() // This will crash!!!</span><br></pre></td></tr></table></figure>
+<p>从上面的例子可以看到，你同样要对<code>removeLast()</code>的应用安全负责，当你删除一个空数组中最后一个元素的时候，会直接引发运行时错误。</p>
+<h2 id="按值语义实现的Array"><a href="#按值语义实现的Array" class="headerlink" title="按值语义实现的Array"></a>按值语义实现的Array</h2><p>在Swift中，<code>Array</code>是按照值语义实现的，当我们复制一个<code>Array</code>对象时，会拷贝整个<code>Array</code>的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a = [1, 2, 3] // [1, 2, 3]</span><br><span class="line">let copyA = a     // [1, 2, 3]</span><br><span class="line"></span><br><span class="line">a.append(4)</span><br><span class="line">// a  [1, 2, 3, 4]</span><br><span class="line">// copyA [1, 2, 3]</span><br><span class="line">// copyA.append(4)   // Compile error</span><br></pre></td></tr></table></figure>
+<p>上面的代码中，有两点值得说明。</p>
+<p>首先，Swift数组是否可以被修改完全是通过<code>var</code>和<code>let</code>关键字来决定的，<code>Array</code>类型自身并不解决它是否可以被修改的问题；</p>
+<p>其次，从结果可以看到，复制<code>a</code>并向<code>a</code>添加内容之后，<code>copyA</code>的内容并不会修改。但是，Swift在复制<code>Array</code>时，同样对<code>Array</code>的性能有所考量，它使用了copy on write的方式。即如果你仅仅复制了<code>Array</code>而不对它修改时，真正的复制是不会发生的，两个数组仍旧引用同一个内存地址。只有当你修改了其中一个<code>Array</code>的内容时，才会真正让两个<code>Array</code>对象分开。为了看到这个过程，我们先来实现一个方法，把保存<code>Array</code>内容的地址变成一个字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func getBufferAddress&lt;T&gt;(of array: [T]) -&gt; String &#123;</span><br><span class="line">    return array.withUnsafeBufferPointer &#123; buffer in</span><br><span class="line">        return String(describing: buffer.baseAddress)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>withUnsafeBufferPointer</code>是<code>Array</code>的一个方法，它可以把保存<code>Array</code>内容的地址，传递给它的closure参数。在我们的例子里，这个closure只是把<code>Array</code>的地址，变成了一个<code>String</code>对象。</p>
+<p>然后，我们在<code>a.append(4)</code>前后，分别观察<code>a</code>和<code>copyA</code>的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getBufferAddress(of: a)</span><br><span class="line">getBufferAddress(of: copyA)</span><br><span class="line"></span><br><span class="line">a.append(4)</span><br><span class="line"></span><br><span class="line">getBufferAddress(of: a)</span><br><span class="line">getBufferAddress(of: copyA)</span><br></pre></td></tr></table></figure>
+<p><img src="https://o8lw4gkx9.qnssl.com/array-vs-nsarray-1@2x.png" alt="Array vs nsarray"></p>
+<p>就如同图中显示的，只有在给<code>a</code>添加内容后，它才被重新分配了内存地址。</p>
+<p>了解了Swift <code>Array</code>之后，我们再来看Foundation中<code>NSArray</code>的情况。</p>
+<h2 id="按引用语义实现的NSArray"><a href="#按引用语义实现的NSArray" class="headerlink" title="按引用语义实现的NSArray"></a>按引用语义实现的NSArray</h2><p>在Foundation中，数组这个类型有两点和Swift <code>Array</code>是不同的：</p>
+<ul>
+<li>数组是否可以被修改是通过<code>NSArray</code>和<code>NSMutableArray</code>这两个类型来决定的；</li>
+<li><code>NSArray</code>和<code>NSMutableArray</code>都是类对象，复制它们执行的是引用语义；</li>
+</ul>
+<p>当把这两个因素放在一起的时候，Foundation中的“常量数组”这个概念就会在一些场景里表现的很奇怪。因为你还可以通过对一个常量数组的非常量引用去修改它，来看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Mutable array [1, 2, 3]</span><br><span class="line">let b = NSMutableArray(array: [1, 2, 3])</span><br><span class="line">// Const array [1, 2, 3]</span><br><span class="line">let copyB: NSArray = b</span><br><span class="line"></span><br><span class="line">// [0, 1, 2, 3]</span><br><span class="line">b.insert(0, at: 0)</span><br><span class="line">// [0, 1, 2, 3]</span><br><span class="line">copyB</span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以看到，尽管我们在创建<code>copyB</code>时，使用了<code>NSArray</code>，表明我们不希望它的值被修改，由于这个赋值执行的是引用拷贝，因此，实际上它和<code>b</code>指向的是同一块内存空间。因此，当我们修改<code>b</code>的内容时，<code>copyB</code>也就间接受到了影响。</p>
+<p>为了在拷贝<code>NSArray</code>对象时，执行值语义，我们必须使用它的<code>copy</code>方法复制所有的元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let b = NSMutableArray(array: [1, 2, 3])</span><br><span class="line">let copyB: NSArray = b</span><br><span class="line">let deepCopyB = b.copy() as! NSArray</span><br><span class="line"></span><br><span class="line">b.insert(0, at: 0) // [0, 1, 2, 3]</span><br><span class="line">copyB              // [0, 1, 2, 3]</span><br><span class="line">deepCopyB          // [1, 2, 3]</span><br></pre></td></tr></table></figure>
+<p>从注释中的结果，你就能很容易理解deep copy的含义了。</p>
+<blockquote>
+<p>当我们使用<code>NSArray</code>和<code>NSMutableArray</code>时，Swift中的<code>var</code>和<code>let</code>关键字就和数组是否可以被修改没关系了。它们只控制对应的变量是否可以被赋值成新的<code>NSArray</code>或<code>NSMutableArray</code>对象。</p>
+</blockquote>
+<h2 id="绝大多数时候，其实你不需要"><a href="#绝大多数时候，其实你不需要" class="headerlink" title="绝大多数时候，其实你不需要[]"></a>绝大多数时候，其实你不需要[]</h2><p>对于下标访问数组元素这种老旧的形式，Swift的开发者应该是不太喜欢的。为了避免你这么做，他们甚至在Swift语言中去掉了传统C风格<code>for initial; condition; step</code>循环。的确，当你对数组使用这种循环时，下标是一定会在循环内出场的。</p>
+<p>另外一个他们不喜欢下标操作符的理由是，对于<code>array[index]</code>这样的访问，甚至都没有使用optional来保护越界的情况。通过下面的代码可以看到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let a = [1, 2, 3]</span><br><span class="line">type(of: a[1]) // Int.type</span><br></pre></td></tr></table></figure>
+<p><code>a[1]</code>的类型是<code>Int</code>，而不是<code>Optional&lt;Int&gt;</code>，这说明什么呢？你必须小心翼翼的使用index来访问<code>Array</code>中的元素，一旦index的值不正确，你就需要承担运行崩溃的严重后果。</p>
+<p>那么，为什么要对<code>[]</code>如此冷漠呢？因为当我们把基于连续内存中的一组值进一步抽象成一个数组集合之后，下标这种方式带着太多C语言中和内存访问相关的历史气息。而我们应该把注意力更多的放在我们要解决的各种问题上。例如：</p>
+<p>当我们想访问数组中的每一个元素时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a.forEach &#123; print($0) &#125;</span><br><span class="line">// or</span><br><span class="line">for value in a &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们要获得数组中每一个元素的索引和值时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for (index, value) in a.enumerated() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们要查找数组中元素的位置时（例如，查找等于1的元素的索引）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a.index &#123; $0 == 1 &#125;</span><br></pre></td></tr></table></figure>
+<p><code>index</code>会返回一个<code>Optional&lt;Int&gt;</code>，当要查找的元素存在时，就返回该元素的索引，否则，就返回<code>nil</code>。</p>
+<p>当我们要筛选出数组中的某些元素时（例如，得到所有偶数）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a.filter &#123; $0 % 2 == 0 &#125;</span><br></pre></td></tr></table></figure>
+<p>当然，在下个视频中我们会专门和大家分享Swift <code>Array</code>常用操作的惯用形式。但至少现在，你应该已经感受到了，当你要完成特定的操作时，Swift一定有比直接使用下标更具表现力和安全的写法。</p>
+<p>话又说回来，给<code>[]</code>添加optional保护也不能解决安全问题，因为一旦你force unwrapping一个optional，就有可能会带来一连串的force unwrapping。这不仅看上去不美观，从代码表现的含义上来说，既然已经准备好要为结果全权负责了，又何必要再让你多执行一步force unwrapping呢。</p>
+<h2 id="一些安全周到的方法"><a href="#一些安全周到的方法" class="headerlink" title="一些安全周到的方法"></a>一些安全周到的方法</h2><p>和<code>[]</code>的高风险形成鲜明对比的是，对于那些可以生成优秀代码的方法，Swift则考虑的面面俱到。例如：</p>
+<p>访问数组中第一个和最后一个元素的<code>first</code>和<code>last</code>属性，当<code>Array</code>为空时，它们的值都是<code>nil</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a.first // 1</span><br><span class="line">a.last  // 3</span><br><span class="line">type(of: a.first) // Optional&lt;Int&gt;.Type</span><br></pre></td></tr></table></figure>
+<p>另外一个值得一提的是在<code>Array</code>末尾删除元素。Swift为这个动作提供了两个API：</p>
+<ul>
+<li><code>removeLast</code>，你需要自行确保数组中有元素，否则会引发运行时错误；</li>
+<li><code>popLast</code>，如果数组为空，会返回<code>nil</code>；</li>
+</ul>
+<p>为什么要如此呢？一个最通俗的解释就是，为了表意更清晰的代码。</p>
+<p>当你基于<code>Array</code>实现诸如栈这样后入先出的数据结构时，弹出一个元素并判断是否为空是一个常规的操作，所以<code>popLast</code>返回了一个optional。而对于更一般的“删除数组中最后一个元素”这样的行为，Swift认为，这没有任何更具体的使用场景，你应该自己对这样的“低级操作”负责。</p>
+<h2 id="从循环到map"><a href="#从循环到map" class="headerlink" title="从循环到map"></a>从循环到map</h2><p>假设我们有一个简单的Fibonacci序列：<code>[0, 1, 1, 2, 3, 5]</code>。如果我们要计算每个元素的平方，怎么办呢？</p>
+<p>一个最朴素的做法是<code>for</code>循环：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var fibonacci = [0, 1, 1, 2, 3, 5]</span><br><span class="line">var squares = [Int]()</span><br><span class="line"></span><br><span class="line">for value in fibonacci &#123;</span><br><span class="line">    squares.append(value * value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也许，现在你还觉得这样没什么不好理解，但是，想象一下这段代码在几十行代码中间的时候，或者当这样类似的逻辑反复出现的时候，整体代码的可读性就不那么强了。</p>
+<p>如果你觉得这还不是个足够引起你注意的问题，那么，当我们要定义一个常量<code>squares</code>的时候，上面的代码就完全无法胜任了。怎么办呢？先来看解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// [0, 1, 1, 4, 9, 25]</span><br><span class="line">let constSquares = fibonacci.map &#123; $0 * $0 &#125;</span><br></pre></td></tr></table></figure>
+<p>上面这行代码，和之前那段<code>for</code>循环执行的结果是相同的。显然，它比<code>for</code>循环更具表现力，并且也能把我们期望的结果定义成常量。当然，<code>map</code>并不是什么魔法，无非就是把<code>for</code>循环执行的逻辑，封装在了函数里，这样我们就可以把函数的返回值赋值给常量了。我们可以通过<code>extension</code>很简单的自己来实现<code>map</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">extension Array &#123;</span><br><span class="line">    func myMap&lt;T&gt;(_ transform: (Element) -&gt; T) -&gt; [T] &#123;</span><br><span class="line">        var tmp: [T] = []</span><br><span class="line">        tmp.reserveCapacity(count)</span><br><span class="line"></span><br><span class="line">        for value in self &#123;</span><br><span class="line">            tmp.append(transform(value))</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return tmp</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然和Swift标准库相比，<code>myMap</code>的实现中去掉了和异常声明相关的部分。但它已经足以表现<code>map</code>的核心实现过程了。除了在<code>append</code>之前使用了<code>reserveCapacity</code>给新数组预留了空间之外，它的实现过程和一开始我们使用的<code>for</code>循环没有任何差别。</p>
+<blockquote>
+<p>如果你还不了解<code>Element</code>也没关系，把它理解为<code>Array</code>中元素类型的替代符就好了。在后面我们讲到<code>Sequence</code>类型的时候，会专门提到它。</p>
+</blockquote>
+<p>完成后，当我们在playground里测试的时候：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// [0, 1, 1, 4, 9, 25]</span><br><span class="line">let constSequence1 = fibonacci.myMap &#123; $0 * $0 &#125;</span><br></pre></td></tr></table></figure>
+<p>就会发现执行结果和之前的<code>constSequence</code>是一样的了。</p>
+<h2 id="参数化数组元素的执行动作"><a href="#参数化数组元素的执行动作" class="headerlink" title="参数化数组元素的执行动作"></a>参数化数组元素的执行动作</h2><p>其实，仔细观察<code>myMap</code>的实现，就会发现它最大的意义，就是保留了遍历<code>Array</code>的过程，而把要执行的动作留给了<code>myMap</code>的调用者通过参数去定制。而这，就是我们一开始提到的<strong>用closure来参数化对数组的操作行为</strong>的含义。</p>
+<p>有了这种思路之后，我们就可以把各种常用的带有遍历行为的操作，定制成多种不同的遍历“套路”，而把对数组中每一个元素的处理动作留给函数的调用者。但是别急，在开始自动动手造轮子之前，Swift library已经为我们准备了一些，例如：</p>
+<p>首先，是找到最小、最大值，对于这类操作来说，只要数组中的元素实现了<code>Equatable</code> protocol，我们甚至无需定义对元素的具体操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.min() // 0</span><br><span class="line">fibonacci.max() // 5</span><br></pre></td></tr></table></figure>
+<p>使用<code>min</code>和<code>max</code>很安全，因为当数组为空时，这两个方法将返回<code>nil</code>。</p>
+<p>其次，过滤出满足特定条件的元素，我们只要通过参数指定筛选规则就好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.filter &#123; $0 % 2 == 0 &#125;</span><br></pre></td></tr></table></figure>
+<p>第三，比较数组相等或以特定元素开始。对这类操作，我们需要提供两个内容，一个是要比较的数组，另一个则是比较的规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// false</span><br><span class="line">fibonacci.elementsEqual([0, 1, 1], by: &#123; $0 == $1 &#125;)</span><br><span class="line">// true</span><br><span class="line">fibonacci.starts(with: [0, 1, 1], by: &#123; $0 == $1 &#125;)</span><br></pre></td></tr></table></figure>
+<p>第四，最原始的<code>for</code>循环的替代品：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.forEach &#123; print($0) &#125;</span><br><span class="line">// 0</span><br><span class="line">// 1</span><br><span class="line">// ...</span><br></pre></td></tr></table></figure>
+<p>要注意它和<code>map</code>的一个重要区别：<strong>forEach并不处理closure参数的返回值</strong>。因此它只适合用来对数组中的元素进行一些操作，而不能用来产生返回结果。</p>
+<p>第五、对数组进行排序，这时，我们需要通过参数指定的是排序规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// [0, 1, 1, 2, 3, 5]</span><br><span class="line">fibonacci.sorted()</span><br><span class="line">// [5, 3, 2, 1, 1, 0]</span><br><span class="line">fibonacci.sorted(by: &gt;)</span><br><span class="line"></span><br><span class="line">let pivot = fibonacci.partition(by: &#123; $0 &lt; 1 &#125;)</span><br><span class="line">fibonacci[0 ..&lt; pivot] // [5, 1，1，2, 3]</span><br><span class="line">fibonacci[pivot ..&lt; fibonacci.endIndex] // [0]</span><br></pre></td></tr></table></figure>
+<p>其中，<code>sorted(by:)</code>的用法是很直接的，它默认采用升序排列。同时，也允许我们通过<code>by</code>自定义排序规则。在这里<code>&gt;</code>是<code>{ $0 &gt; $1 }</code>的简写形式。Swift中有很多在不影响语义的情况下的简写形式。</p>
+<p>而<code>partition(by:)</code>则会<strong>先对传递给它的数组进行重排</strong>，然后根据指定的条件在重排的结果中返回一个分界点位置。这个分界点分开的两部分中，前半部分的元素都不满足指定条件；后半部分都满足指定条件。而后，我们就可以使用range operator来访问这两个区间形成的<code>Array</code>对象。大家可以根据例子中注释的结果，来理解partition的用法。</p>
+<p>第六，是把数组的所有内容，“合并”成某种形式的值，对这类操作，我们需要指定的，是合并前的初始值，以及“合并”的规则。例如，我们计算<code>fibonacci</code>中所有元素的和：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.reduce(0, +) // 12</span><br></pre></td></tr></table></figure>
+<p>在这里，初始值是0，和第二个参数<code>+</code>，则是<code>{ $0 + $1 }</code>的缩写。</p>
+<p>通过这些例子，你应该能感受到了，这些通过各种形式封装了遍历动作的方法，它们之中的任何一个，都比直接通过<code>for</code>循环实现具有更强的表现力。这些API，开始让我们的代码从面向机器的，转变成面向业务需求的。因此，在Swift里，你应该试着让自己转变观念，当你面对一个<code>Array</code>时，你真的几乎可以忘记下标和循环了。</p>
+<h2 id="区分修改外部变量和保存内部状态"><a href="#区分修改外部变量和保存内部状态" class="headerlink" title="区分修改外部变量和保存内部状态"></a>区分修改外部变量和保存内部状态</h2><p>当我们使用上面提到的这些带有closure参数的<code>Array</code>方法时，一个不好的做法就是通过closure去修改外部变量，并依赖这种副作用产生的结果。来看一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var sum = 0</span><br><span class="line">let constSquares2 = fibonacci.map &#123; (fib: Int) -&gt; Int in</span><br><span class="line">    sum += fib</span><br><span class="line">    return fib * fib</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子里，<code>map</code>的执行产生了一个副作用，就是对<code>fibonacci</code>中所有的元素求和。这不是一个好的方法，我们应该避免这样。你应该单独使用<code>reduce</code>来完成这个操作，或者如果一定要在closure参数里修改外部变量，哪怕用<code>forEach</code>也是比<code>map</code>更好的方案。</p>
+<p>但是，在函数实现内部，专门用一个外部变量来保存closure参数的执行状态，则是一个常用的实现技法。例如，我们要创建一个新的数组，其中每个值，都是数组当前位置和之前所有元素的和，可以这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">extension Array &#123;</span><br><span class="line">    func accumulate&lt;T&gt;(_ initial: T,</span><br><span class="line">                       _ nextSum: (T, Element) -&gt; T) -&gt; [T] &#123;</span><br><span class="line">        var sum = initial</span><br><span class="line"></span><br><span class="line">        return map &#123; next in</span><br><span class="line">            sum = nextSum(sum, next)</span><br><span class="line">            return sum</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面这个例子里，我们利用<code>map</code>的closure参数捕获了<code>sum</code>，这样就保存了每一次执行<code>map</code>时，之前所有元素的和。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// [0, 1, 2, 4, 7, 12]</span><br><span class="line">fibonacci.accumulate(0, +)</span><br></pre></td></tr></table></figure>
+<h2 id="filter和与filter类似的语义"><a href="#filter和与filter类似的语义" class="headerlink" title="filter和与filter类似的语义"></a>filter和与filter类似的语义</h2><p>之前，我们提到过<code>filter</code>的用法，用于在<code>Array</code>中，过滤满足特定条件的元素。而这个条件，就是通过<code>filter</code>的closure参数来确定的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var fibonacci = [0, 1, 1, 2, 3, 5]</span><br><span class="line"></span><br><span class="line">// [0, 2]</span><br><span class="line">fibonacci.filter &#123; $0 % 2 == 0 &#125;</span><br></pre></td></tr></table></figure>
+<p>按照上一节中实现<code>map</code>的思路，我们可以自己来实现一个<code>filter</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">extension Array &#123;</span><br><span class="line">    func myFilter(_ predicate: (Element) -&gt; Bool) -&gt; [Element] &#123;</span><br><span class="line">        var tmp: [Element] = []</span><br><span class="line">        </span><br><span class="line">        for value in self where predicate(value) &#123;</span><br><span class="line">            tmp.append(value)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return tmp</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的实现里，最核心的环节就是通过带有<code>where</code>条件的<code>for</code>循环找到原数组中符合条件的元素，然后把它们一一添加到<code>tmp</code>中，并最终返回给函数的调用者。然后，我们测试下<code>myFilter</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.myFilter &#123; $0 % 2 == 0 &#125; // [0, 2]</span><br></pre></td></tr></table></figure>
+<p>结果，应该是和标准库中自带的<code>filter</code>是一样的。理解了<code>filter</code>之后，我们就可以自行定义一些标准库中没有的方法。例如：</p>
+<p>剔除掉数组中满足条件的元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extension Array &#123;</span><br><span class="line">    func reject(_ predicate: (Element) -&gt; Bool) -&gt; [Element] &#123;</span><br><span class="line">        return filter &#123; !predicate($0) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们只要把调用转发给<code>filter</code>，然后把指定的条件取反就好了。这样，剔除元素的代码语义上就会更好看一些：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.reject &#123; $0 % 2 == 0 &#125; // [1, 1, 3, 5]</span><br></pre></td></tr></table></figure>
+<p>另一个基于<code>filter</code>语义的常用操作是判断数组中是否存在满足条件的元素。下面的代码可以完成任务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.filter &#123; $0 % 2 == 0 &#125;.count &gt; 0 // true</span><br></pre></td></tr></table></figure>
+<p>但这样做在性能上并不理想，因为即便找到了满足条件的元素，也要遍历完整个数组，这显然是没必要的。Swift标准库中，提供了一个更方便的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.contains &#123; $0 % 2 == 0 &#125; // true</span><br></pre></td></tr></table></figure>
+<p><code>contains</code>的一个好处就是只要遇到满足条件的元素，函数的执行就终止了。基于这个<code>contains</code>，我们还可以给<code>Array</code>添加一个新的方法，用来判断<code>Array</code>中所有的元素是否满足特定的条件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extension Array &#123;</span><br><span class="line">    func allMatch(_ predicate: (Element) -&gt; Bool) -&gt; Bool &#123;</span><br><span class="line">        return !contains &#123; !predicate($0) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>allMatch</code>的实现里，只要没有不满足条件的元素，也就是所有元素都满足条件了。我们可以用下面的代码测试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let evens = [2, 4, 6, 8]</span><br><span class="line">evens.allMatch &#123; $0 % 2 == 0 &#125; // true</span><br></pre></td></tr></table></figure>
+<h2 id="reduce和与reduce相关的语义"><a href="#reduce和与reduce相关的语义" class="headerlink" title="reduce和与reduce相关的语义"></a>reduce和与reduce相关的语义</h2><p>除了用一个数组生成一个新的数组，有时，我们会希望把一个数组变成某种形式的值。例如，之前我们提到的求和：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.reduce(0, +) // 12</span><br></pre></td></tr></table></figure>
+<p>了解<code>reduce</code>的进一步用法之前，我们先来自己实现一个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">extension Array &#123;</span><br><span class="line">    func myReduce&lt;T&gt;(_ initial: T, _ next: (T, Element) -&gt; T) -&gt; T &#123;</span><br><span class="line">        var tmp = initial</span><br><span class="line">        </span><br><span class="line">        for value in self &#123;</span><br><span class="line">            tmp = next(tmp, value)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return tmp</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的实现就可以看出，<code>reduce</code>的实现也没有什么神奇之处。无非就是把<code>for</code>循环迭代相加的过程封装了起来。然后，用下面的代码测试一下，就会发现和标准库中的<code>reduce</code>一样了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibonacci.myReduce(0, +) // 12</span><br></pre></td></tr></table></figure>
+<p>除了求和之外，我们还可以把<code>fibonacci</code> reduce成一个字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let str = fibonacci.myReduce(&quot;&quot;) &#123; str, num in </span><br><span class="line">    return str + &quot;\(num) &quot;</span><br><span class="line">&#125;</span><br><span class="line">// &quot;0 1 1 2 3 5 &quot;</span><br></pre></td></tr></table></figure>
+<p>甚至，我们还可以用<code>reduce</code>模拟<code>map</code>和<code>filter</code>的实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">extension Array &#123;</span><br><span class="line">    func myMap2&lt;T&gt;(_ transform: (Element) -&gt; T) -&gt; [T] &#123;</span><br><span class="line">        return reduce([], &#123; $0 + [transform($1)] &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func myFilter2(_ predicate: (Element) -&gt; Bool) -&gt; [Element] &#123;</span><br><span class="line">        return reduce([], &#123; predicate($1) ? $0 + [$1] : $0 &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，简单测试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// [0, 1, 1, 4, 9, 25]</span><br><span class="line">fibonacci.myMap2 &#123; $0 * $0 &#125;</span><br><span class="line">// [0, 2]</span><br><span class="line">fibonacci.myFilter2 &#123; $0 % 2 == 0 &#125;</span><br></pre></td></tr></table></figure>
+<p>它们的结果和标准库中的<code>map</code>和<code>filter</code>是一样的。但是，这种看似优雅的写法却没有想象中的那么好。在它们内部的<code>reduce</code>调用中，每一次<code>$0</code>的参数都是一个新建的数组，因此整个算法的复杂度是O(n2)，而不再是<code>for</code>循环版本的O(n)。所以，这样的实现方法最好还是用来作为理解<code>reduce</code>用法的例子。</p>
+<h2 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap"></a>flatMap</h2><p>最后，我们来了解<code>flatMap</code>。简单来说，如果你用在<code>map</code>中的closure参数不返回一个数组元素，而是也返回一个数组，这样，你就会得到一个数组的数组，但如果你只需要一个一维数组，<code>flatMap</code>就可以派上用场了，而这，也就是flat的含义。先来看一个例子：</p>
+<p><img src="https://o8lw4gkx9.qnssl.com/animal-array-1@2x.png" alt="FlatMap demo"></p>
+<p>假设，我们要给<code>animals</code>数组中的动物都使用<code>ids</code>中的数字进行编号。一开始，可能我们会写下这样的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">animals.map &#123; animal in</span><br><span class="line">    return ids.map &#123; id in (animal, id) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但如果是这样，由于<code>animals.map</code>使用的closure参数返回的是一个<code>Array</code>，而不是单一元素，最终，我们会得到一个“数组的数组”：</p>
+<p><img src="https://o8lw4gkx9.qnssl.com/filter-reduce-flatmap-1@2x.png" alt="FlatMap demo"></p>
+<p>但这并不是我们想要的，我们只是需要一个一维数组表示所有的<code>(animal, id)</code>。此时，就可以让<code>flatMap</code>派上用场了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">animals.flatMap &#123; animal in</span><br><span class="line">    return ids.map &#123; id in (animal, id) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，我们就能得到期望的内容了：</p>
+<p><img src="https://o8lw4gkx9.qnssl.com/filter-reduce-flatmap-2@2x.png" alt="FlatMap demo"></p>
+<p>实际上，<code>flatMap</code>的实现很简单，只要在<code>map</code>内部的<code>for</code>循环里，不断把closure参数生成的数组的内容，添加到要返回的结果里就好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">extension Array &#123;</span><br><span class="line">    func myFlatMap&lt;T&gt;(_ transform: (Element) -&gt; [T]) -&gt; [T] &#123;</span><br><span class="line">        var tmp: [T] = []</span><br><span class="line">        </span><br><span class="line">        for value in self &#123;</span><br><span class="line">            tmp.append(contentsOf: transform(value))</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return tmp</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用下面的代码测试，得到的结果，应该和之前使用<code>flatMap</code>是一样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">animals.myFlatMap &#123; animal in</span><br><span class="line">    return ids.map &#123; id in (animal, id) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Dictionary</code>是除了<code>Array</code>之外的另一种非常重要的数据结构，它用于把某种形式的key，关联到某种形式的value。我们来看一个例子。</p>
+<h2 id="定义Dictionary"><a href="#定义Dictionary" class="headerlink" title="定义Dictionary"></a>定义Dictionary</h2><p>假设我们要定义一个数据结构，用来保存用户在泊学对某个视频的观看情况。可以这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">enum RecordType &#123;</span><br><span class="line">    case bool(Bool)</span><br><span class="line">    case number(Int)</span><br><span class="line">    case text(String)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let record11: [String: RecordType] = [</span><br><span class="line">    &quot;uid&quot;: .number(11),</span><br><span class="line">    &quot;exp&quot;: .number(100),</span><br><span class="line">    &quot;favourite&quot;: .bool(true),</span><br><span class="line">    &quot;title&quot;: .text(&quot;Dictionary basics&quot;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>在上面代码里，我们用<code>[KeyType: ValueType]</code>的形式来定义一个<code>Dictionary</code>。当定义好<code>Dictionary</code>之后，我们就能直接用<code>[Key]</code>来访问某个key对应的值了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">record11[&quot;uid&quot;]       // number(11)</span><br><span class="line">record11[&quot;favourite&quot;] // bool(true)</span><br><span class="line">record11[&quot;title&quot;]     // text(&quot;Dictionary basics&quot;)</span><br><span class="line">record11[&quot;invalid&quot;]   // nil</span><br><span class="line"></span><br><span class="line">// Optional&lt;RecordType&gt;.Type</span><br><span class="line">type(of: record11[&quot;favourite&quot;])</span><br></pre></td></tr></table></figure>
+<p>上面例子中的结果都很直观。但是有一个细节却是值得我们注意的。和<code>Array</code>不同的是，<code>[]</code>用在<code>Dictionary</code>的时候，会返回一个Optional类型来确保这种形式的访问安全。因此，访问不存在的key，并不会导致运行时错误。</p>
+<p>你怎么理解这种差异呢？</p>
+<p>这是因为索引这个概念，对<code>Array</code>和<code>Dictionary</code>来说，是截然不同的。对于<code>Array</code>来说，我们有可能使用的正常索引值只源于<code>Array</code>自身，也就是<code>0..&lt;array.count</code>，因此，如果你使用了不在这个范围里的值，则一定是可以被定性为Bug的，何况，我们之前也看到了，对于<code>Array</code>，我们几乎不需要直接使用索引来访问元素。</p>
+<p>而对于<code>Dictionary</code>来说，它包含的内容并不直接决定我们可以查询的内容。举个例子来说，英汉词典中也可能并不包含我们要查询的单词。所以，<code>Dictionary</code>中包含的所有键值，从语义上说，并不完全决定了它的使用者会查询的值，所以，我们也无法把这类问题明确的归因于是Bug。所以，Swfit为<code>Dictionary</code>的索引查询操作，提供了optional保护。要么得到正确的结果，要么通过<code>nil</code>表示要查询的内容不存在。</p>
+<h2 id="常用的基本属性"><a href="#常用的基本属性" class="headerlink" title="常用的基本属性"></a>常用的基本属性</h2><p>作为一个集合类型，<code>Dictionary</code>同样有<code>count</code>和<code>isEmpty</code>两个属性读取其元素的个数以及判断其是否为空：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">record11.count   // 4</span><br><span class="line">record11.isEmpty // false</span><br></pre></td></tr></table></figure>
+<p>另外，我们可以单独访问一个<code>Dictionary</code>的所有<code>keys</code>和所有<code>values</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">record11.keys</span><br><span class="line">record11.values</span><br></pre></td></tr></table></figure>
+<p>这两个属性也分别是一个集合，我们可以暂时忽略掉它们具体的类型，如果要我们要访问它们的每一个元素，直接用<code>for</code>循环或<code>forEach</code>遍历就好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for key in record11.keys &#123; print(key) &#125;</span><br><span class="line">// or</span><br><span class="line">record11.keys.forEach &#123; print($0) &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="添加、更新和删除元素"><a href="#添加、更新和删除元素" class="headerlink" title="添加、更新和删除元素"></a>添加、更新和删除元素</h2><p>和<code>Array</code>一样，<code>Dictionary</code>也是一个值类型，当我们复制<code>Dictionary</code>对象的时候，就会拷贝<code>Dictionary</code>中的所有内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var record10 = record11</span><br></pre></td></tr></table></figure>
+<p>并且，直接使用key就可以访问和修改<code>Dictionary</code>的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">record10[&apos;favourite&apos;] = .bool(false) // false</span><br><span class="line">record11[&apos;favourite&apos;] // true</span><br></pre></td></tr></table></figure>
+<p>如果我们希望更新value的时候，同时获得修改前的值，还可以使用<code>updateValue(_:forKey:)</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">record10.updateValue(.bool(true),</span><br><span class="line">    forKey: &quot;favourite&quot;) // .bool(false)</span><br></pre></td></tr></table></figure>
+<p>从上面的结果可以看出修改<code>record10</code>并不会影响<code>record11</code>。</p>
+<p>当我们要在<code>Dictionary</code>中添加元素时，直接给要添加的key赋值就好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">record10[&quot;watchLater&quot;] = .bool(false)</span><br><span class="line">// [</span><br><span class="line">//  &quot;favourite&quot;: RecordType.bool(false),</span><br><span class="line">//  &quot;exp&quot;: RecordType.number(100),</span><br><span class="line">//  &quot;title&quot;: RecordType.text(&quot;Directory basics&quot;),</span><br><span class="line">//  &quot;uid&quot;: RecordType.number(11),</span><br><span class="line">//  &quot;watchLater&quot;: RecordType.bool(false)</span><br><span class="line">// ]</span><br></pre></td></tr></table></figure>
+<p>这样，<code>record10</code>中的内容，就变成了5项。而当我们要删除特定的key时，直接把它的值设置为<code>nil</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">record10[&quot;watchLater&quot;] = nil</span><br><span class="line">// [</span><br><span class="line">//  &quot;favourite&quot;: RecordType.bool(false),</span><br><span class="line">//  &quot;exp&quot;: RecordType.number(100),</span><br><span class="line">//  &quot;title&quot;: RecordType.text(&quot;Directory basics&quot;),</span><br><span class="line">//  &quot;uid&quot;: RecordType.number(11)</span><br><span class="line">// ]</span><br></pre></td></tr></table></figure>
+<p>这里，并不是把特定key的值设置为<code>nil</code>（毕竟<code>Dictionary</code>中value部分的类型也不是optional），而是删除特定的key。当某个key的value被设置成<code>nil</code>后，这个key也就从<code>Dictionary</code>中删除了。</p>
+<h2 id="遍历Dictionary"><a href="#遍历Dictionary" class="headerlink" title="遍历Dictionary"></a>遍历Dictionary</h2><p>由于<code>Dictionary</code>同时包含了key和value，因此，我们也有多重方式来遍历<code>Dictionary</code>。最简单的，就是遍历<code>Dictionary</code>中的每一个元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (k, v) in record10 &#123;</span><br><span class="line">    print(&quot;\(k): \(v)&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">record10.forEach &#123; print(&quot;\($0): \($1)&quot;) &#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的例子可以看到，遍历<code>Dictionary</code>和遍历<code>Array</code>是类似的。当我们使用<code>for</code>循环遍历时，它的每一个元素都用一个tuple来表示，封装了每一个元素的key和value。而当使用<code>forEach</code>方法时，它会给它的closure参数传递两个值，分别是每一个元素的key和value。</p>
+<p>但是，由于<code>Dictionary</code>是一个无序集合（unordered collection），因此当我们编辑了<code>Dictionary</code>之后，每次遍历，访问元素的顺序都可能是不同的。如果我们希望按照固定的顺序来访问<code>Dictionary</code>中的元素，一个最简单的办法，就是对key排序后，再进行遍历：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for key in record10.keys.sorted() &#123;</span><br><span class="line">    print(&quot;\(key): \(record10[key])&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们为上一节提到的视频观看记录提供一个默认值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">enum RecordType &#123;</span><br><span class="line">    case bool(Bool)</span><br><span class="line">    case number(Int)</span><br><span class="line">    case text(String)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let defaultRecord: [String: RecordType] = [</span><br><span class="line">    &quot;uid&quot;: .number(0),</span><br><span class="line">    &quot;exp&quot;: .number(100),</span><br><span class="line">    &quot;favourite&quot;: .bool(false),</span><br><span class="line">    &quot;title&quot;: .text(&quot;&quot;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>这样，当创建新纪录时，我们希望保持默认记录中的默认值，同时合并进不同用户的设置，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var template = defaultRecord</span><br><span class="line">var record11Patch: [String: RecordType] = [</span><br><span class="line">    &quot;uid&quot;: .number(11),</span><br><span class="line">    &quot;title&quot;: .text(&quot;Common dictionary extensions&quot;)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">// How can we do this?</span><br><span class="line">// template.merge(record11Patch)</span><br><span class="line">// [</span><br><span class="line">//    uid: .number(11),</span><br><span class="line">//    &quot;exp&quot;: .number(100),</span><br><span class="line">//    &quot;favourite&quot;: .bool(false),</span><br><span class="line">//    &quot;title&quot;: .text(&quot;Common dictionary extensions&quot;)</span><br><span class="line">// ]</span><br></pre></td></tr></table></figure>
+<h2 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h2><p>然而，该如何实现这个<code>merge</code>呢？最重要的事情，就是要想一下什么内容可以被<code>merge</code>进来。最一般的情况来说，<strong>无论任何形式的序列，只要它的元素中key和value的类型和Dictionary相同，就可以进行合并</strong>。</p>
+<p>如何在代码中表达这个特征呢？来看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extension Dictionary &#123;</span><br><span class="line">    mutating func merge&lt;S:Sequence&gt;(_ sequence: S)</span><br><span class="line">        where S.Iterator.Element == (key: Key, value: Value) &#123;</span><br><span class="line"></span><br><span class="line">        sequence.forEach &#123; self[$0] = $1 &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于<code>Dictionary</code>是一个<code>struct</code>，并且<code>merge</code>修改了<code>self</code>，我们必须使用<code>mutating</code>关键字修饰这个方法。而对于<code>sequence</code>参数，我们通过<code>where</code>关键字限定了两个内容：</p>
+<ul>
+<li><code>S</code>必须遵从<code>Sequence</code> protocol，<code>Dictionary</code>是众多遵从了<code>Sequence</code> protocol的collection类型之一，但是，我们没必要一定只能合并<code>Dictionary</code>；</li>
+<li><code>S</code>的元素类型必须和原<code>Dictionary</code>的<code>Element</code>相同，其中<code>Key</code>和<code>Value</code>是<code>Dictionary</code>声明中的两个反省参数；</li>
+</ul>
+<p>解决了参数问题之后，实现合并的算法就很简单了，我们只是更新<code>self</code>中每一个和<code>sequence</code>有相同key的值就好了。</p>
+<p>这样，之前<code>template.merge(record11Patch)</code>就可以正常工作了。</p>
+<p>既然，我们把<code>merge</code>参数的约束定义为了<code>Sequence</code>，那我们就来看一个合并非<code>Dictionary</code>类型的情况，例如，合并一个包含正确内容的<code>Array</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let record10Patch: [(key: String, value: RecordType)] = [</span><br><span class="line">    (key: &quot;uid&quot;,   value: .number(10)),</span><br><span class="line">    (key: &quot;title&quot;, value: .text(&quot;Common dictionary extensions&quot;))</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">var template1 = defaultRecord</span><br><span class="line">template1.merge(record10Patch)</span><br><span class="line">// [</span><br><span class="line">//    uid: .number(10),</span><br><span class="line">//    &quot;exp&quot;: .number(100),</span><br><span class="line">//    &quot;favourite&quot;: .bool(false),</span><br><span class="line">//    &quot;title&quot;: .text(&quot;Common dictionary extensions&quot;)</span><br><span class="line">// ]</span><br></pre></td></tr></table></figure>
+<p>在上面的代码里，我们合并了一个tuple数组，它的类型是<code>Array&lt;String, RecordType&gt;</code>，数组中的每一项都包含了一个要合并进来的键值对。如果没有意外，合并<code>Array</code>和<code>Dictionary</code>都应该是可以正常工作的。</p>
+<p>按照我们对<code>merge</code>的实现方式，实际上，任何一个遵从了<code>Sequence</code> protocol的类型，只要它包含了和<code>template</code>相同的元素类型，都是可以<code>merge</code>的。</p>
+<h2 id="用一个tuple数组初始化Dictionary"><a href="#用一个tuple数组初始化Dictionary" class="headerlink" title="用一个tuple数组初始化Dictionary"></a>用一个tuple数组初始化Dictionary</h2><p>理解了<code>merge</code>的实现和用法之后，其实，我们很容易把这个场景进一步扩展下，如果我们可以<code>merge</code>类型兼容的<code>Sequence</code>，那么，用这样的<code>Sequence</code>来初始化一个<code>Dictionary</code>也是可以的，把它看成是和一个空的<code>Dictionary</code>进行合并就好了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">extension Dictionary &#123;</span><br><span class="line">    init&lt;S:Sequence&gt;(_ sequence: S)</span><br><span class="line">        where S.Iterator.Element == (key: Key, value: Value) &#123;</span><br><span class="line"></span><br><span class="line">        self = [:]</span><br><span class="line">        self.merge(sequence)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有了这个方法之后，我们直接用下面的代码就可以创建一个新的<code>Dictionary</code>对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let record11 = Dictionary(record11Patch)</span><br><span class="line">// [</span><br><span class="line">//    uid: .number(11),</span><br><span class="line">//    &quot;title&quot;: .text(&quot;Common dictionary extensions&quot;)</span><br><span class="line">// ]</span><br></pre></td></tr></table></figure>
+<h2 id="定制map的行为"><a href="#定制map的行为" class="headerlink" title="定制map的行为"></a>定制map的行为</h2><p>最后一个要介绍的常用功能，是定制<code>Dictionary.map</code>的行为，默认情况下它返回的是一个<code>Array</code>，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">record11.map &#123; $1 &#125;</span><br><span class="line">// [ .number(11).text(&quot;Common dictionary extensions&quot;)]</span><br></pre></td></tr></table></figure>
+<p>在上面的例子里，<code>map</code>返回一个<code>Array&lt;RecordType&gt;</code>，但有时，我们仅仅希望对value做一些变换，而仍旧保持<code>Dictionary</code>的类型。为此，我们可以自定义一个“只map value”的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extension Dictionary &#123;</span><br><span class="line">    func mapValue&lt;T&gt;(_ transform: (Value) -&gt; T) -&gt; [Key: T] &#123;</span><br><span class="line">        return Dictionary&lt;Key, T&gt;(map &#123; (k, v) in</span><br><span class="line">            return (k, transform(v))</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个实现的最内部，我们用标准库中的<code>map</code>得到了一个<code>Array&lt;(String, RecordType)&gt;</code>类型的<code>Array</code>，而后，由于<code>Array</code>也遵从了<code>Sequence</code>protocol，因此，我们就能直接使用这个<code>Array</code>来定义新的<code>Dictionary</code>了。</p>
+<p>完成之后，用下面的代码测试下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let newRecord11 = record11.mapValue &#123; record -&gt; String in</span><br><span class="line">    switch record &#123;</span><br><span class="line">    case .text(let title):</span><br><span class="line">        return title</span><br><span class="line">    case .number(let exp):</span><br><span class="line">        return String(exp)</span><br><span class="line">    case .bool(let favourite):</span><br><span class="line">        return String(favourite)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// [</span><br><span class="line">//    &quot;uid&quot;: &quot;11&quot;,</span><br><span class="line">//    &quot;title&quot;: &quot;Common dictionary extensions&quot;</span><br><span class="line">// ]</span><br></pre></td></tr></table></figure>
+<p>这样，我们就用<code>record11</code>生成了一个<code>Dictionary&lt;String, String&gt;</code>类型的对象。</p>
+<p>本质上来说，<code>Dictionary</code>是一个哈希表，它所有的key都用各自的哈希值保存在一个数组里。因此，通过key在<code>Dictionary</code>中访问value是一个<em>O(1)</em>操作。但这也对key的类型做出了一个要求，<strong>它必须可以计算哈希值</strong>。Swift标准库中提供的绝大多数类型，例如：<code>Int / Float / Double / String / Bool / Date ...</code>等，都满足这个要求，因此我们可以直接拿它们来定义<code>Dictionary</code>。</p>
+<p>但如果我们有一个自定义类型<code>Account</code>，表示泊学的网站账号，其中的<code>alias</code> / <code>type</code> / <code>createdAt</code>分别表示账号的别名、类型和注册日期：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> struct Account &#123;</span><br><span class="line">    var alias: String</span><br><span class="line">    var type: Int</span><br><span class="line">    var createdAt: Date</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们把<code>Account</code>用作key的时候，Swift就会给我们提示下面的错误：<strong>Account没有遵从Hashable protocol</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let account11 = Account(alias: &quot;11&quot;,</span><br><span class="line">    type: 1, createdAt  : Date())</span><br><span class="line">let data:[Account: Int] = [ account11: 1000 ]</span><br></pre></td></tr></table></figure>
+<p><img src="https://o8lw4gkx9.qnssl.com/custom-hashable-1@2x.png" alt="Hashable requirement"></p>
+<h2 id="Conform-to-Hashable-protocol"><a href="#Conform-to-Hashable-protocol" class="headerlink" title="Conform to Hashable protocol"></a>Conform to Hashable protocol</h2><p>如何让自定义类型遵从<code>Hashable</code> protocol呢？第一件要做的事，就是告诉Swift，如何获取一个类型的哈希值，这是通过一个叫<code>hashValue</code>的属性完成的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extension Account: Hashable &#123;</span><br><span class="line">    var hashValue: Int</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如何计算<code>Account.hashValue</code>呢？有两个最重要的考量，分别是：性能和哈希值在整数范围的分布。因为每当我们要在<code>Dictionary</code>中查询、添加、修改或删除元素的时候，都要计算key的哈希值，如果这个计算过于消耗性能，那么计算哈希值的过程就有可能抵消掉通过key随机访问value带来的<em>O(1)</em>性能提升。</p>
+<p>当然，你也不能盲目追求性能而忽视哈希值的整数值分布。说一个最极端的例子，如果你让所有情况计算得到的哈希值都是某个常数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">extension Account: Hashable &#123;</span><br><span class="line">    // A BAD idea</span><br><span class="line">    var hashValue: Int &#123; return 1 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个哈希函数有<em>O(1)</em>的性能，但这样，不同的<code>Account</code>对象就会有不同的哈希值，这叫做Collision。当然，Swift <code>Dictionary</code>可以处理哈希值碰撞的情况，但你要随之付出的代价就是，通过哈希值读取value将从一个<em>O(1)</em>变成一个<em>O(n)</em>算法。因此，让哈希值在整数区间均匀分布也是设计哈希函数很重的考虑。</p>
+<p>综上所述，设计一个好的哈希函数并不是一个容易的事情。对于我们来说，可以假设Swift标准库的类型提供的<code>hashValue</code>都满足性能和分布的要求。因此，当我们设计复合类型的哈希值的时候，可以基于这些标准类型的哈希值进行一些“低功耗”运算，例如，对这些值进行异或运算，绝大多数的CPU都对这个操作提供了指令级支持：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extension Account: Hashable &#123;</span><br><span class="line">    var hashValue: Int &#123;</span><br><span class="line">        return alias.hashValue ^</span><br><span class="line">                type.hashValue ^</span><br><span class="line">                createdAt.hashValue</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决了<code>Account</code>的哈希值之后，Swift会继而提示我们：<strong>Account没有遵从Equatable protocol</strong>。为什么还要遵从<code>Equatable</code>呢？这是因为哈希函数还有一个很重要的性质：<strong>两个相等对象的哈希值必须是相同的</strong>。因此，我们必须要解决什么叫做两个相等的对象，然后才有比较它们各自哈希值的事情。</p>
+<p><code>Equatable</code>只有一个约束，就是为自定义类型实现<code>==</code>操作符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extension Account: Equatable &#123;</span><br><span class="line">    static func == (lhs: Account, rhs: Account) -&gt; Bool &#123;</span><br><span class="line">        return lhs.alias == rhs.alias &amp;&amp;</span><br><span class="line">            lhs.type == rhs.type &amp;&amp;</span><br><span class="line">            lhs.createdAt == rhs.createdAt</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Swift里，运算符必须要定义成<code>static</code>方法，它的两个参数<code>lhs / rhs</code>则表示<code>==</code>两边的操作数。我们判断<code>Account</code>相等的方式很简单，只要它们每一个属性相等，则两个<code>Account</code>对象就是相等的。</p>
+<p>当我们让<code>Account</code>遵从了<code>Equatable</code>之后，Swift编译器就不会再报错了。此时，我们在一开始创建的<code>data</code>也可以正常工作了。</p>
+<h2 id="Bitwise-rotation"><a href="#Bitwise-rotation" class="headerlink" title="Bitwise rotation"></a>Bitwise rotation</h2><p>我们上面例子中提到的把所有属性进行XOR运算的方法，虽然简单高效，但也有一个问题，就是比较容易造成碰撞。因为XOR运算是可交换的，也就是说<code>a ^ b == b ^ a</code>，因此，如果一个自定义类型中，有多个类型相同属性的时候，就会增大哈希值发生碰撞的概率，因此，我们可以用下面的代码，对其中的一些基础属性的哈希值进行按位旋转后再进行XOR运算：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">struct Account &#123;</span><br><span class="line">    let INT_BIT = (Int)(CHAR_BIT) * MemoryLayout&lt;Int&gt;.size</span><br><span class="line"></span><br><span class="line">    func bitwiseRotate(value: Int, bits: Int) -&gt; Int &#123;</span><br><span class="line">        return (((value) &lt;&lt; bits) | ((value) &gt;&gt; (UINT_BIT - bits)))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension Account: Hashable &#123;</span><br><span class="line">    var hashValue: Int &#123;</span><br><span class="line">        return bitwiseRotate(value: alias.hashValue, bits: 10) ^</span><br><span class="line">            type.hashValue ^</span><br><span class="line">            createdAt.hashValue</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，我们在<code>Account</code>中添加了一个常量<code>INT_BIT</code>表示一个整数的位数。其次，定义了一个辅助方法<code>bitwiseRotate(value:bits:)</code>，它用于先把<code>value</code>向左移动<code>bits</code>位，再向右移动<code>(UINT_BIT - bits)</code>位。</p>
+<p>有了这个方法之后，我们就可以在计算哈希值的时候，对其中的属性进行按位旋转了。</p>
+<h2 id="警惕引用类型的Key"><a href="#警惕引用类型的Key" class="headerlink" title="警惕引用类型的Key"></a>警惕引用类型的Key</h2><p>和<code>Dictionary.Key</code>相关的最后一个内容，是<strong>尽可能避免使用引用类型作为key</strong>，这通常会给你带来不必要的麻烦。当一个引用类型作为key之后，当引用类型的对象在<code>Dictionary</code>之外被修改的时候，Key的内容也会随之修改。这样你就再也无法获得之前的哈希值，也就无法获得对应的value了。</p>
+<p> 除了<code>Dictionary</code>之外，<code>Set</code>是Swift标准库中，另外一个主要的无序集合（unordered collection）类型，包含一组不重复的值。你也可以把<code>Set</code>理解为一个只包含key而没有value的集合。本质上，<code>Set</code>也是一个哈希表，因此它有着和<code>Dictionary</code>诸多类似的地方。</p>
+<p>在了解<code>Set</code>的各种用法之前，我们先来看如何定义一个<code>Set</code>。</p>
+<h2 id="初始化Set"><a href="#初始化Set" class="headerlink" title="初始化Set"></a>初始化Set</h2><p>例如，我们要创建一个包含所有元音的<code>Set</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var vowel: Set&lt;Character&gt; = [&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;]</span><br><span class="line">// var vowel: Set = [&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, &quot;o&quot;, &quot;u&quot;]</span><br></pre></td></tr></table></figure>
+<p>这里，由于初始化<code>Set</code>和<code>Array</code>的方式是一样的，因此，当我们要定义一个<code>Set</code>对象时，必须明确使用type annotation。Type inference会把这样的定义方式推导为一个<code>Array</code>。</p>
+<h2 id="Set的常用属性和方法"><a href="#Set的常用属性和方法" class="headerlink" title="Set的常用属性和方法"></a>Set的常用属性和方法</h2><p>作为一个集合类型，<code>Set</code>提供了和<code>Array</code>以及<code>Dictionary</code>一样的常用属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vowel.count  // 5</span><br><span class="line">vowel.isEmpty // false</span><br></pre></td></tr></table></figure>
+<p>以及常用的编辑方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vowel.contains(&quot;a&quot;) // true</span><br><span class="line">vowel.remove(&quot;a&quot;)   // a</span><br><span class="line">vowel.insert(&quot;a&quot;)   // (true, &quot;a&quot;)</span><br><span class="line">vowel.removeAll()   // Set([])</span><br></pre></td></tr></table></figure>
+<p>在上面的代码里：</p>
+<ul>
+<li><code>contains</code>判断它的参数是否在<code>Set</code>中，并返回一个<code>bool</code>值表示判断结果；</li>
+<li><code>remove</code>在<code>Set</code>中删除参数指定的元素，如果元素存在就成功删除并返回删除的元素，否则就返回<code>nil</code>；</li>
+<li><code>insert</code>在<code>Set</code>中插入参数指定的内容，如果插入的内容已存在，会返回一个值为<code>(false, 插入值)</code>的tuple，否则，就返回<code>(true, 插入值)</code>；</li>
+<li><code>removeAll</code>则删除所有<code>Set</code>中的元素，留下一个空的集合；</li>
+</ul>
+<h2 id="遍历Set"><a href="#遍历Set" class="headerlink" title="遍历Set"></a>遍历Set</h2><p>和<code>Dictionary</code>类似，我们有三种方式来遍历<code>Set</code>。首先，是最普通的<code>for</code>循环：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for character in vowel &#123;</span><br><span class="line">    print(character)</span><br><span class="line">&#125;</span><br><span class="line">// e, a, i, o, u</span><br></pre></td></tr></table></figure>
+<p>其次，是集合自身的<code>forEach</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vowel.forEach &#123; print($0) &#125;</span><br><span class="line">// e, a, i, o, u</span><br></pre></td></tr></table></figure>
+<p>通过注释中的方法可以看到，当遍历一个<code>Set</code>时，访问元素的顺序，并不是我们定义<code>Set</code>时的顺序，这也就是unordered collection的含义。</p>
+<p>当我们每次遍历<code>Set</code>时，遍历的顺序，都会根据当前<code>Set</code>包含的值而有所不同。如果你希望按照某种“固定”的排序方式访问<code>Set</code>中的元素，就要使用它的<code>sorted</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for character in vowel.sorted() &#123;</span><br><span class="line">    print(character)</span><br><span class="line">&#125;</span><br><span class="line">// a, e, i, o, u</span><br></pre></td></tr></table></figure>
+<p>这样，我们就可以顺序访问<code>Set</code>中的元素了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础知识/" rel="tag"># 基础知识</a>
+          
+            <a href="/tags/swfit/" rel="tag"># swfit</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/08/iOS Ui爬坑记/" rel="next" title="swift布局">
+                <i class="fa fa-chevron-left"></i> swift布局
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/11/什么是设备指纹/" rel="prev" title="设备指纹">
+                设备指纹 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/37128815.jpeg"
+                alt="Bob Wen" />
+            
+              <p class="site-author-name" itemprop="name">Bob Wen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobwen13579" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.weibo.com/u/2314489310/home?wvr=5&lf=reg" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Array全面解析"><span class="nav-number">1.</span> <span class="nav-text">Array全面解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两个常用的Array属性"><span class="nav-number">1.1.</span> <span class="nav-text">两个常用的Array属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问Array中的元素"><span class="nav-number">1.2.</span> <span class="nav-text">访问Array中的元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加和删除元素"><span class="nav-number">1.3.</span> <span class="nav-text">添加和删除元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按值语义实现的Array"><span class="nav-number">1.4.</span> <span class="nav-text">按值语义实现的Array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按引用语义实现的NSArray"><span class="nav-number">1.5.</span> <span class="nav-text">按引用语义实现的NSArray</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绝大多数时候，其实你不需要"><span class="nav-number">1.6.</span> <span class="nav-text">绝大多数时候，其实你不需要[]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些安全周到的方法"><span class="nav-number">1.7.</span> <span class="nav-text">一些安全周到的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从循环到map"><span class="nav-number">1.8.</span> <span class="nav-text">从循环到map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数化数组元素的执行动作"><span class="nav-number">1.9.</span> <span class="nav-text">参数化数组元素的执行动作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区分修改外部变量和保存内部状态"><span class="nav-number">1.10.</span> <span class="nav-text">区分修改外部变量和保存内部状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter和与filter类似的语义"><span class="nav-number">1.11.</span> <span class="nav-text">filter和与filter类似的语义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reduce和与reduce相关的语义"><span class="nav-number">1.12.</span> <span class="nav-text">reduce和与reduce相关的语义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flatMap"><span class="nav-number">1.13.</span> <span class="nav-text">flatMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义Dictionary"><span class="nav-number">1.14.</span> <span class="nav-text">定义Dictionary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的基本属性"><span class="nav-number">1.15.</span> <span class="nav-text">常用的基本属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加、更新和删除元素"><span class="nav-number">1.16.</span> <span class="nav-text">添加、更新和删除元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历Dictionary"><span class="nav-number">1.17.</span> <span class="nav-text">遍历Dictionary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#merge"><span class="nav-number">1.18.</span> <span class="nav-text">merge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用一个tuple数组初始化Dictionary"><span class="nav-number">1.19.</span> <span class="nav-text">用一个tuple数组初始化Dictionary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定制map的行为"><span class="nav-number">1.20.</span> <span class="nav-text">定制map的行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conform-to-Hashable-protocol"><span class="nav-number">1.21.</span> <span class="nav-text">Conform to Hashable protocol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bitwise-rotation"><span class="nav-number">1.22.</span> <span class="nav-text">Bitwise rotation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#警惕引用类型的Key"><span class="nav-number">1.23.</span> <span class="nav-text">警惕引用类型的Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化Set"><span class="nav-number">1.24.</span> <span class="nav-text">初始化Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set的常用属性和方法"><span class="nav-number">1.25.</span> <span class="nav-text">Set的常用属性和方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历Set"><span class="nav-number">1.26.</span> <span class="nav-text">遍历Set</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bob Wen</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

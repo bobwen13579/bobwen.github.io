@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="单元测试,iOS," />
+  <meta name="keywords" content="界面编程," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="XCTest 单元测试 常用断言 如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。  最基本的断言  表示如果expression满足，则测试通过，否则对应format的错误。  XCTAssert(expression, format…) 直接Fail的断言   XCTFail(format…)  其他一些常用的断言：  XCTAssertTrue(expression, for">
-<meta name="keywords" content="单元测试,iOS">
+<meta name="description" content="iOS Ui爬坑记导航栏设置 在AppDelegate .swift中的application 函数实现全局 123456let mainPage = ViewController()let navRoot = UINavigationController(rootViewController: mainPage)navRoot.navigationBar.isTranslucent = true">
+<meta name="keywords" content="界面编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OC测试">
-<meta property="og:url" content="http://yoursite.com/2018/08/01/XCTest/index.html">
+<meta property="og:title" content="swift布局">
+<meta property="og:url" content="http://yoursite.com/2018/09/08/iOS Ui爬坑记/index.html">
 <meta property="og:site_name" content="我怀念的">
-<meta property="og:description" content="XCTest 单元测试 常用断言 如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。  最基本的断言  表示如果expression满足，则测试通过，否则对应format的错误。  XCTAssert(expression, format…) 直接Fail的断言   XCTFail(format…)  其他一些常用的断言：  XCTAssertTrue(expression, for">
+<meta property="og:description" content="iOS Ui爬坑记导航栏设置 在AppDelegate .swift中的application 函数实现全局 123456let mainPage = ViewController()let navRoot = UINavigationController(rootViewController: mainPage)navRoot.navigationBar.isTranslucent = true">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-29T03:47:56.822Z">
+<meta property="og:updated_time" content="2018-09-08T10:16:21.835Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OC测试">
-<meta name="twitter:description" content="XCTest 单元测试 常用断言 如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。  最基本的断言  表示如果expression满足，则测试通过，否则对应format的错误。  XCTAssert(expression, format…) 直接Fail的断言   XCTFail(format…)  其他一些常用的断言：  XCTAssertTrue(expression, for">
+<meta name="twitter:title" content="swift布局">
+<meta name="twitter:description" content="iOS Ui爬坑记导航栏设置 在AppDelegate .swift中的application 函数实现全局 123456let mainPage = ViewController()let navRoot = UINavigationController(rootViewController: mainPage)navRoot.navigationBar.isTranslucent = true">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/01/XCTest/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/08/iOS Ui爬坑记/"/>
 
 
 
 
 
-  <title>OC测试 | 我怀念的</title>
+  <title>swift布局 | 我怀念的</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/XCTest/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/iOS Ui爬坑记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Bob Wen">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OC测试</h1>
+          <h1 class="post-title" itemprop="name headline">swift布局</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T20:40:25+08:00">
-                2018-08-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T15:40:11+08:00">
+                2018-09-08
               </time>
             
 
@@ -352,29 +352,13 @@
       
 
       
-        <h1 id="XCTest"><a href="#XCTest" class="headerlink" title="XCTest"></a>XCTest</h1><hr>
-<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><hr>
-<p><a href="">常用断言</a></p>
-<p>如何判断一个测试用例成功或者失败呢？XCTest使用断言来实现。 </p>
-<p>最基本的断言 </p>
-<p>表示如果expression满足，则测试通过，否则对应format的错误。</p>
-<blockquote>
-<p>XCTAssert(expression, format…)</p>
-<p>直接Fail的断言</p>
-</blockquote>
-<blockquote>
-<p>XCTFail(format…)</p>
-</blockquote>
-<p>其他一些常用的断言：</p>
-<blockquote>
-<p>XCTAssertTrue(expression, format…)</p>
-<p>XCTAssertFalse(expression, format…)</p>
-<p>XCTAssertEqual(expression1, expression2, format…)</p>
-<p>XCTAssertNotEqual(expression1, expression2, format…)</p>
-<p>XCTAssertEqualWithAccuracy(expression1, expression2, accuracy, format…)</p>
-<p>XCTAssertNotEqualWithAccuracy(expression1, expression2, accuracy, format…)</p>
-<p>XCTAssertNil(expression, format…) XCTAssertNotNil(expression, format…)</p>
-</blockquote>
+        <h2 id="iOS-Ui爬坑记"><a href="#iOS-Ui爬坑记" class="headerlink" title="iOS Ui爬坑记"></a>iOS Ui爬坑记</h2><p>导航栏设置</p>
+<p>在<strong>AppDelegate</strong> .swift中的<strong>application</strong> 函数实现全局</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mainPage = <span class="type">ViewController</span>()</span><br><span class="line"><span class="keyword">let</span> navRoot = <span class="type">UINavigationController</span>(rootViewController: mainPage)</span><br><span class="line">navRoot.navigationBar.isTranslucent = <span class="literal">true</span><span class="comment">//是否透明</span></span><br><span class="line">window = <span class="type">UIWindow</span>(frame: <span class="type">UIScreen</span>.main.bounds)</span><br><span class="line">window?.backgroundColor = <span class="type">UIColor</span>.white</span><br><span class="line">window?.rootViewController = navRoot<span class="comment">//根目录</span></span><br></pre></td></tr></table></figure>
+<p>添加导航栏按钮：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rightIteam:<span class="type">UIBarButtonItem</span> = <span class="type">UIBarButtonItem</span>(image: <span class="type">UIImage</span>(named:<span class="string">"duty_choicemore"</span>), style: <span class="type">UIBarButtonItemStyle</span>.plain, target: <span class="keyword">self</span>, action: #selector(<span class="type">Tapdown</span>(<span class="number">_</span>:)))</span><br><span class="line">   <span class="keyword">self</span>.navigationItem.rightBarButtonItem = rightIteam</span><br></pre></td></tr></table></figure>
+<p>SnapKit库</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> label  = <span class="type">UILabel</span>(frame: <span class="type">CGRect</span>(x: <span class="number">70</span>, y: <span class="number">20</span>, width: <span class="number">100</span>, height: <span class="number">50</span>))</span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(label)</span><br><span class="line">        label.snp.makeConstraints&#123;(make)-&gt;<span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">            make.width.height.equalTo(<span class="number">50</span>);<span class="comment">//长宽设置</span></span><br><span class="line">            make.center.equalTo(<span class="keyword">self</span>.view)<span class="comment">//容器实现</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//支持链式调用 </span></span><br><span class="line"><span class="comment">//距离父视图</span></span><br><span class="line">make.top.equalToSuperview().offset(<span class="number">100</span>)</span><br><span class="line"><span class="comment">//大于</span></span><br><span class="line">make.<span class="keyword">left</span>.greaterThanOrEqualTo(<span class="keyword">self</span>.view).offset(<span class="number">20</span>)</span><br><span class="line"><span class="comment">//小于</span></span><br><span class="line">make.<span class="keyword">left</span>.lessThanOrEqualTo(<span class="number">20</span>) </span><br><span class="line"><span class="comment">//优先级 999&gt;666(max = 999 else @throw)</span></span><br><span class="line">make.width.equalTo(<span class="number">100</span>).priority(<span class="number">666</span>)</span><br><span class="line">make.width.equalTo(<span class="number">250</span>).priority(<span class="number">999</span>)</span><br><span class="line"><span class="comment">//声明约束</span></span><br><span class="line"><span class="comment">//global</span></span><br><span class="line"><span class="keyword">var</span> updateConstraint: <span class="type">Constraint</span>?</span><br><span class="line"><span class="comment">//method 对某个约束进行绑定</span></span><br><span class="line"><span class="keyword">self</span>.updateConstraint = make.top.<span class="keyword">left</span>.equalTo(<span class="number">10</span>).constraint  </span><br><span class="line"><span class="comment">//</span></span><br><span class="line"> blackView.snp.remakeConstraints</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -392,9 +376,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/单元测试/" rel="tag"># 单元测试</a>
-          
-            <a href="/tags/iOS/" rel="tag"># iOS</a>
+            <a href="/tags/界面编程/" rel="tag"># 界面编程</a>
           
         </div>
       
@@ -407,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/01/frist-try/" rel="next" title="OC 反射机制">
-                <i class="fa fa-chevron-left"></i> OC 反射机制
+              <a href="/2018/09/04/swift页面跳转/" rel="next" title="swift页面跳转">
+                <i class="fa fa-chevron-left"></i> swift页面跳转
               </a>
             
           </div>
@@ -417,8 +399,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/29/测试/" rel="prev" title="Test Double">
-                Test Double <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/08/Array全面解析/" rel="prev" title="Array全面解析">
+                Array全面解析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -571,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XCTest"><span class="nav-number">1.</span> <span class="nav-text">XCTest</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试"><span class="nav-number">1.1.</span> <span class="nav-text">单元测试</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS-Ui爬坑记"><span class="nav-number">1.</span> <span class="nav-text">iOS Ui爬坑记</span></a></li></ol></div>
             
 
           </div>
